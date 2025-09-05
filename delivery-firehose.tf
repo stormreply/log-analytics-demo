@@ -24,8 +24,8 @@ data "aws_iam_policy_document" "delivery_firehose" {
       "s3:PutObject"
     ]
     resources = [
-      "${aws_s3_bucket.module_bucket.arn}",
-      "${aws_s3_bucket.module_bucket.arn}/*",
+      "${aws_s3_bucket.bucket.arn}",
+      "${aws_s3_bucket.bucket.arn}/*",
       "*" # TODO: delete after test
     ]
   }
@@ -90,14 +90,14 @@ resource "aws_kinesis_firehose_delivery_stream" "delivery_firehose" {
   destination = "extended_s3" # "opensearch"
   extended_s3_configuration {
     role_arn            = aws_iam_role.delivery_firehose.arn
-    bucket_arn          = aws_s3_bucket.module_bucket.arn
+    bucket_arn          = aws_s3_bucket.bucket.arn
     prefix              = "data/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
     error_output_prefix = "errors/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/!{firehose:error-output-type}/"
   }
   # opensearch_configuration {
   #   s3_configuration {
   #     role_arn            = aws_iam_role.delivery_firehose.arn
-  #     bucket_arn          = aws_s3_bucket.module_bucket.arn
+  #     bucket_arn          = aws_s3_bucket.bucket.arn
   #     error_output_prefix = "opensearch/errors/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/!{firehose:error-output-type}/"
   #   }
   #   domain_arn            = aws_opensearch_domain.log_analytics_demo.arn
