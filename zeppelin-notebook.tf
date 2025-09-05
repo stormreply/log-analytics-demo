@@ -50,6 +50,6 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
     aws_iam_policy.zeppelin_notebook,
     aws_iam_role.zeppelin_notebook,
     aws_iam_role_policy_attachment.zeppelin_notebook,
-    aws_s3_object.firehose_connector_jar
+    aws_s3_object.artifact["flink-sql-connector-aws-kinesis-firehose"]
   ]
 }
