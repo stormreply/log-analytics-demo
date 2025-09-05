@@ -5,9 +5,7 @@ locals {
 
 resource "null_resource" "connector_download" {
   provisioner "local-exec" {
-    command = <<-EOT
-      curl -L -o ${local.connector_url} ${local.connector_jar}
-    EOT
+    command = "curl -L -o ${local.connector_url} ${local.connector_jar}"
     quiet   = false
   }
   triggers = {
@@ -19,7 +17,7 @@ resource "aws_s3_object" "connector_jar" {
   bucket = "${var.deployment.name}-upload"
   key    = local.connector_jar
   source = local.connector_jar
-  etag   = filemd5(local.connector_jar)
+  # etag   = filemd5(local.connector_jar)
 
   depends_on = [null_resource.connector_download]
 }
