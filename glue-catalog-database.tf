@@ -24,6 +24,5 @@ resource "aws_lakeformation_permissions" "catalog_create_db" {
 resource "aws_glue_catalog_database" "glue_database" {
   name = var.deployment.name
 
-  # sicherstellen, dass LF-Grant nur beachtet wird, wenn count=1
-  depends_on = local.lakeformation_enabled ? [aws_lakeformation_permissions.catalog_create_db] : []
+  depends_on = [aws_lakeformation_permissions.catalog_create_db]
 }
