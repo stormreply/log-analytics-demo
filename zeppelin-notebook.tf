@@ -37,7 +37,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
           artifact_type = "DEPENDENCY_JAR"
           s3_content_location = {
             bucket_arn = aws_s3_bucket.bucket.arn
-            file_key   = local.downloads["flink-sql-connector-aws-kinesis-firehose"]
+            file_key   = local.connector_jar
           }
         }
       ]
