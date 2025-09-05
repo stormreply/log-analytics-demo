@@ -5,7 +5,7 @@ locals {
 
 resource "null_resource" "connector_download" {
   provisioner "local-exec" {
-    command = "curl -L -o ${local.connector_url} ${local.connector_jar}"
+    command = "curl -L -o ${local.connector_jar} ${local.connector_url}"
     quiet   = false
   }
   triggers = {
