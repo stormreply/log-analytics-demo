@@ -17,7 +17,6 @@ resource "aws_s3_object" "connector_jar" {
   bucket = "${var.deployment.name}-upload"
   key    = local.connector_jar
   source = local.connector_jar
-  # etag   = filemd5(local.connector_jar)
-
+  # etag = filemd5(local.connector_jar)
   depends_on = [null_resource.connector_download]
 }
