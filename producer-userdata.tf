@@ -7,13 +7,13 @@ data "cloudinit_config" "controller" {
   part {
     filename     = "01-stop-ssm-agent.sh"
     content_type = "text/x-shellscript"
-    content      = file("${path.module}/scripts/01-stop-ssm-agent.sh")
+    content      = file("${path.module}/userdata/01-stop-ssm-agent.sh")
   }
 
   part {
     filename     = "02-install-kinesis-agent.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.module}/scripts/02-install-kinesis-agent.sh", {
+    content = templatefile("${path.module}/userdata/02-install-kinesis-agent.sh", {
       deployment_name = var.deployment.name
     })
   }
@@ -21,12 +21,12 @@ data "cloudinit_config" "controller" {
   part {
     filename     = "03-install-apache-fake-log-gen.sh"
     content_type = "text/x-shellscript"
-    content      = file("${path.module}/scripts/03-install-apache-fake-log-gen.sh")
+    content      = file("${path.module}/userdata/03-install-apache-fake-log-gen.sh")
   }
 
   part {
     filename     = "01-start-ssm-agent.sh"
     content_type = "text/x-shellscript"
-    content      = file("${path.module}/scripts/01-start-ssm-agent.sh")
+    content      = file("${path.module}/userdata/01-start-ssm-agent.sh")
   }
 }
