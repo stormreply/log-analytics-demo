@@ -15,7 +15,7 @@ locals {
 
 resource "aws_lakeformation_permissions" "catalog_create_db" {
   count       = local.lakeformation_enabled ? 1 : 0
-  principal   = data.aws_caller_identity.current.arn
+  principal   = local.account_id
   permissions = ["CREATE_DATABASE"]
 
   catalog_resource = true
