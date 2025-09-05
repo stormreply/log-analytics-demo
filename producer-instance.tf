@@ -4,12 +4,9 @@ module "producer" {
   # tflint-ignore: terraform_module_pinned_source
   source                 = "git::https://github.com/stormreply/terraform-build-controller.git"
   deployment             = var.deployment
+  instance_name          = "${var.deployment.name}-producer"
   instance_type          = "m6.xlarge"
   policies               = local.producer_policies
   user_data_base64       = base64encode(trimspace(data.cloudinit_config.controller.rendered))
   vpc_security_group_ids = [aws_security_group.producer.id]
-
-  tags = {
-    Name = "${var.deployment.name}-producer"
-  }
 }
