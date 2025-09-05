@@ -137,7 +137,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "s3:GetObjectVersion"
     ]
     resources = [
-      "${aws_s3_bucket.bucket.arn}/${local.downloads["flink-sql-connector-aws-kinesis-firehose"]}"
+      "${aws_s3_bucket.bucket.arn}/${local.connector_jar}"
     ]
   }
   statement {
