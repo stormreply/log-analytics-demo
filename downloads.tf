@@ -22,9 +22,9 @@ resource "null_resource" "download" {
 resource "aws_s3_object" "artifact" {
   for_each = local.downloads
   bucket   = "${var.deployment.name}-upload"
-  key      = each.key
-  source   = each.key
-  etag     = filemd5(each.key)
+  key      = each.value
+  source   = each.value
+  etag     = filemd5(each.value)
 
   depends_on = [null_resource.download]
 }
