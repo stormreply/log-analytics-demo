@@ -25,8 +25,8 @@ data "cloudinit_config" "controller" {
   }
 
   part {
-    filename     = "01-start-ssm-agent.sh"
+    filename     = "04-start-ssm-agent.sh"
     content_type = "text/x-shellscript"
-    content      = file("${path.module}/userdata/01-start-ssm-agent.sh")
+    content      = file("${path.module}/userdata/04-start-ssm-agent.sh")
   }
 }
