@@ -30,6 +30,6 @@ resource "aws_s3_object" "connector_jar" {
   source   = each.value.jar
   # etag = filemd5(local.connector_jar)
   depends_on = [
-    null_resource.connector_download[each.key]
+    null_resource.connector_download
   ]
 }
