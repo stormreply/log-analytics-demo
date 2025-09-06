@@ -30,7 +30,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
           maven_reference = {
             artifact_id = "flink-sql-connector-kinesis"
             group_id    = "org.apache.flink"
-            version     = "1.19"
+            version     = "5.0.0-1.19"
           }
         },
         {
