@@ -19,7 +19,7 @@ resource "null_resource" "connector_download" {
     quiet   = false
   }
   triggers = {
-    each.key = each.value.url
+    "${each.key}" = each.value.url
   }
 }
 
