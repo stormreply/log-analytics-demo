@@ -137,7 +137,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "s3:GetObjectVersion"
     ]
     resources = [
-      "${aws_s3_bucket.bucket.arn}/${local.connector_jar}"
+      "${aws_s3_bucket.bucket.arn}/*" # TODO: maybe restrict to .jars
     ]
   }
   statement {

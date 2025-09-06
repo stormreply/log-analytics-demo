@@ -27,17 +27,16 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
       custom_artifacts_configuration = [
         {
           artifact_type = "DEPENDENCY_JAR"
-          maven_reference = {
-            artifact_id = "flink-sql-connector-kinesis"
-            group_id    = "org.apache.flink"
-            version     = "5.0.0-1.19"
+          s3_content_location = {
+            bucket_arn = aws_s3_bucket.bucket.arn
+            file_key   = local.connector["flink-sql-connector-kinesis"].jar
           }
         },
         {
           artifact_type = "DEPENDENCY_JAR"
           s3_content_location = {
             bucket_arn = aws_s3_bucket.bucket.arn
-            file_key   = local.connector_jar
+            file_key   = local.connector["flink-sql-connector-aws-kinesis-firehose"].jar
           }
         }
       ]
@@ -50,6 +49,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
     aws_iam_policy.zeppelin_notebook,
     aws_iam_role.zeppelin_notebook,
     aws_iam_role_policy_attachment.zeppelin_notebook,
-    aws_s3_object.connector_jar
+    aws_s3_object.connector["flink-sql-connector-aws-kinesis-firehose"],
+    aws_s3_object.connector["flink-sql-connector-kinesis"]
   ]
 }
