@@ -14,9 +14,11 @@ resource "null_resource" "connector_download" {
 }
 
 resource "aws_s3_object" "connector_jar" {
-  bucket = "${var.deployment.name}-upload"
+  bucket = aws_s3_bucket.bucket.bucket
   key    = local.connector_jar
   source = local.connector_jar
   # etag = filemd5(local.connector_jar)
-  depends_on = [null_resource.connector_download]
+  depends_on = [
+    null_resource.connector_download
+  ]
 }
