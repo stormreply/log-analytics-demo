@@ -15,7 +15,7 @@ locals {
 
 resource "aws_lakeformation_permissions" "catalog_create_db" {
   count       = local.lakeformation_enabled ? 1 : 0
-  principal   = local.account_id
+  principal   = "arn:aws:sts::541792499640:role/slt-0-storm-library-for-terraform-deployment" # local.account_id
   permissions = ["CREATE_DATABASE"]
 
   catalog_resource = true
