@@ -1,7 +1,7 @@
 locals {
   connector_url = {
-    flink-sql-connector-aws-kinesis-firehose = "http://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-aws-kinesis-firehose/5.0.0-1.19/flink-sql-connector-aws-kinesis-firehose-5.0.0-1.19.jar"
-    flink-sql-connector-kinesis              = "http://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kinesis/5.0.0-1.19/flink-sql-connector-kinesis-5.0.0-1.19.jar"
+    flink-sql-connector-aws-kinesis-firehose = "http://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-aws-kinesis-firehose/1.15.4/flink-sql-connector-aws-kinesis-firehose-1.15.4.jar"
+    flink-sql-connector-kinesis              = "http://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kinesis/1.15.4/flink-sql-connector-kinesis-1.15.4.jar"
   }
   connector = {
     for k, v in local.connector_url :
