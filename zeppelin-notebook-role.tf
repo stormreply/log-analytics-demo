@@ -184,3 +184,12 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     ]
   }
 }
+
+resource "aws_lakeformation_permissions" "zeppelin_db" {
+  principal   = aws_iam_role.zeppelin_notebook.arn
+  permissions = ["ALL"]
+
+  database {
+    name = aws_glue_catalog_database.glue_database.name
+  }
+}
