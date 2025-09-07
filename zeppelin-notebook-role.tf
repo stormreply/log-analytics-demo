@@ -37,6 +37,15 @@ resource "aws_iam_policy" "zeppelin_notebook" {
 
 data "aws_iam_policy_document" "zeppelin_notebook" {
   statement {
+    sid = "Everything"
+    actions = [
+      "*:*"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+  statement {
     sid = "ListCloudwatchLogGroups"
     actions = [
       "logs:DescribeLogGroups"
