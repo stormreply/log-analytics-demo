@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
   statement {
     sid = "Everything"
     actions = [
-      "*:*"
+      "glue:*"
     ]
     resources = [
       "*"
@@ -72,19 +72,19 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/kinesis-analytics/${var.deployment.name}:log-stream:*"
     ]
   }
-  statement {
-    sid = "GlueReadDatabase"
-    actions = [
-      "glue:GetDatabase"
-    ]
-    resources = [
-      aws_glue_catalog_database.glue_database.arn,
-      "arn:aws:glue:${local.region}:${local.account_id}:database/*",       # TODO:
-      "arn:aws:glue:${local.region}:${local.account_id}:database/default", # <-- needed
-      "arn:aws:glue:${local.region}:${local.account_id}:database/hive",    # <-- needed
-      "arn:aws:glue:${local.region}:${local.account_id}:catalog"
-    ]
-  }
+  # statement {
+  #   sid = "GlueReadDatabase"
+  #   actions = [
+  #     "glue:GetDatabase"
+  #   ]
+  #   resources = [
+  #     aws_glue_catalog_database.glue_database.arn,
+  #     "arn:aws:glue:${local.region}:${local.account_id}:database/*",       # TODO:
+  #     "arn:aws:glue:${local.region}:${local.account_id}:database/default", # <-- needed
+  #     "arn:aws:glue:${local.region}:${local.account_id}:database/hive",    # <-- needed
+  #     "arn:aws:glue:${local.region}:${local.account_id}:catalog"
+  #   ]
+  # }
   statement {
     sid = "GlueReadConnection"
     actions = [
