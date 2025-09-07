@@ -1,6 +1,9 @@
 resource "aws_iam_role" "zeppelin_notebook" {
   name               = "${var.deployment.name}-zeppelin-notebook"
   assume_role_policy = data.aws_iam_policy_document.zeppelin_notebook_assume_role.json
+  depends_on = [
+
+  ]
 }
 
 data "aws_iam_policy_document" "zeppelin_notebook_assume_role" {
@@ -36,15 +39,15 @@ resource "aws_iam_policy" "zeppelin_notebook" {
 }
 
 data "aws_iam_policy_document" "zeppelin_notebook" {
-  statement {
-    sid = "EverythingGlue"
-    actions = [
-      "glue:*"
-    ]
-    resources = [
-      "*"
-    ]
-  }
+  # statement {
+  #   sid = "EverythingGlue"
+  #   actions = [
+  #     "glue:*"
+  #   ]
+  #   resources = [
+  #     "*"
+  #   ]
+  # }
 
   statement {
     sid = "EverythingLakeFormation"
@@ -84,19 +87,19 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/kinesis-analytics/${var.deployment.name}:log-stream:*"
     ]
   }
-  # statement {
-  #   sid = "GlueReadDatabase"
-  #   actions = [
-  #     "glue:GetDatabase"
-  #   ]
-  #   resources = [
-  #     aws_glue_catalog_database.glue_database.arn,
-  #     "arn:aws:glue:${local.region}:${local.account_id}:database/*",       # TODO:
-  #     "arn:aws:glue:${local.region}:${local.account_id}:database/default", # <-- needed
-  #     "arn:aws:glue:${local.region}:${local.account_id}:database/hive",    # <-- needed
-  #     "arn:aws:glue:${local.region}:${local.account_id}:catalog"
-  #   ]
-  # }
+  statement {
+    sid = "GlueReadDatabase"
+    actions = [
+      "glue:GetDatabase"
+    ]
+    resources = [
+      aws_glue_catalog_database.glue_database.arn,
+      "arn:aws:glue:${local.region}:${local.account_id}:database/*",
+      "arn:aws:glue:${local.region}:${local.account_id}:database/default",
+      "arn:aws:glue:${local.region}:${local.account_id}:database/hive",
+      "arn:aws:glue:${local.region}:${local.account_id}:catalog"
+    ]
+  }
   statement {
     sid = "GlueReadConnection"
     actions = [

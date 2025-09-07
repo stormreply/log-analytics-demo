@@ -1,0 +1,8 @@
+example taken from
+https://aws.amazon.com/de/tutorials/build-log-analytics-solution/
+
+step by step instruction in
+https://d1.awsstatic.com/Projects/P4113850/aws-projects_build-log-analytics-solution-on-aws.pdf
+
+redeployment of the zeppelin notebook has a bug:
+https://github.com/hashicorp/terraform-provider-awscc/issues/954
