@@ -37,7 +37,7 @@ resource "aws_iam_policy" "zeppelin_notebook" {
 
 data "aws_iam_policy_document" "zeppelin_notebook" {
   statement {
-    sid = "Everything"
+    sid = "EverythingGlue"
     actions = [
       "glue:*"
     ]
@@ -45,6 +45,18 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "*"
     ]
   }
+
+  statement {
+    sid = "EverythingLakeFormation"
+    actions = [
+      "lakeformation:GrantPermissions",
+      "lakeformation:GetDataAccess"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
   statement {
     sid = "ListCloudwatchLogGroups"
     actions = [
