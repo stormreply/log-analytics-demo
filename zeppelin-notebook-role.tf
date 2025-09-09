@@ -116,6 +116,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "glue:GetTable",
       "glue:GetTables",
       "glue:CreateTable",
+      "glue:DeleteTable",
       "glue:UpdateTable"
     ]
     resources = [
@@ -140,7 +141,8 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     ]
     resources = [
       "arn:aws:glue:${local.region}:${local.account_id}:catalog",
-      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.glue_database.name}"
+      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.glue_database.name}",
+      "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/ingestion_stream"
     ]
   }
   statement {
