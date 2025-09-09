@@ -29,4 +29,6 @@ cat << EOT > /etc/aws-kinesis/agent.json
 }
 EOT
 
+service aws-kinesis-agent start
+
 echo "END ---- 02-install-kinesis-agent.sh"
