@@ -7,8 +7,8 @@ sudo pip install numpy
 sudo pip install faker
 sudo pip install tzlocal
 
-curl http://github.com/kiritbasu/Fake-Apache-Log-Generator/blob/master/apache-fake-log-gen.py \
-   > apache-fake-log-gen.py
+curl -L -o apache-fake-log-gen.py \
+    https://raw.githubusercontent.com/kiritbasu/Fake-Apache-Log-Generator/master/apache-fake-log-gen.py
 
 python3 apache-fake-log-gen.py -n 0 -o LOG -p /apache/logs/ &
 
