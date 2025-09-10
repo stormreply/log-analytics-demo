@@ -3,7 +3,7 @@
     {
       "text": "%flink.pyflink\nimport datetime\n\nclass ToMyTimestamp(ScalarFunction):\n    def eval(self, s):\n        return datetime.datetime.strptime(s, '%d/%b/%Y:%H:%M:%S %z')\n        \nst_env.register_function(\"to_my_timestamp\", udf(ToMyTimestamp(), DataTypes.STRING(), DataTypes.TIMESTAMP_LTZ(3)))",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:19+0000",
+      "dateUpdated": "2025-09-10T10:15:54+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -31,19 +31,19 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306269_238563481",
+      "jobName": "paragraph_1757499345911_57062215",
       "id": "paragraph_1704923334530_1945960578",
-      "dateCreated": "2025-09-09T20:05:06+0000",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "dateStarted": "2025-09-10T10:15:54+0000",
+      "dateFinished": "2025-09-10T10:16:44+0000",
       "status": "FINISHED",
       "focus": true,
-      "$$hashKey": "object:1200",
-      "dateFinished": "2025-09-09T20:05:20+0000",
-      "dateStarted": "2025-09-09T20:05:19+0000"
+      "$$hashKey": "object:2971"
     },
     {
       "text": "%flink.ssql\nDROP TABLE IF EXISTS INGESTION_STREAM;\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS to_my_timestamp(datetime),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) PARTITIONED BY (response) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-berndherding-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:40+0000",
+      "dateUpdated": "2025-09-10T10:16:49+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -64,16 +64,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_1566511610",
-      "id": "paragraph_1704886836276_664265219",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:1201",
-      "dateFinished": "2025-09-09T20:05:43+0000",
-      "dateStarted": "2025-09-09T20:05:40+0000",
       "results": {
         "code": "SUCCESS",
         "msg": [
@@ -82,12 +72,22 @@
             "data": "Table has been dropped.\nTable has been created.\n"
           }
         ]
-      }
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345912_1817797215",
+      "id": "paragraph_1704886836276_664265219",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "dateStarted": "2025-09-10T10:16:49+0000",
+      "dateFinished": "2025-09-10T10:16:51+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2972"
     },
     {
       "text": "%flink.ssql\nDESCRIBE INGESTION_STREAM",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:53+0000",
+      "dateUpdated": "2025-09-10T10:16:57+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -137,16 +137,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_323350254",
-      "id": "paragraph_1705059499174_1731761252",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:1202",
-      "dateFinished": "2025-09-09T20:05:54+0000",
-      "dateStarted": "2025-09-09T20:05:54+0000",
       "results": {
         "code": "SUCCESS",
         "msg": [
@@ -155,12 +145,22 @@
             "data": "Column\tType\nhost\tVARCHAR(15)\ndatetime\tVARCHAR(30)\nrequest\tVARCHAR(500)\nresponse\tINT\nreferer\tVARCHAR(500)\nagent\tVARCHAR(500)\nevent_time\tTIMESTAMP_LTZ(3) *ROWTIME*\n"
           }
         ]
-      }
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345913_1247029597",
+      "id": "paragraph_1705059499174_1731761252",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "dateStarted": "2025-09-10T10:16:58+0000",
+      "dateFinished": "2025-09-10T10:16:58+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2973"
     },
     {
-      "text": "%flink.ssql\nSHOW CURRENT CATALOG;\nSHOW CURRENT DATABASE;\nSHOW DATABASES;",
+      "text": "%flink.ssql\nSHOW CURRENT CATALOG;\nSHOW CURRENT DATABASE;",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:15:16+0000",
+      "dateUpdated": "2025-09-10T11:22:44+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -176,7 +176,7 @@
           "2": {
             "graph": {
               "mode": "table",
-              "height": 300,
+              "height": 228,
               "optionOpen": false,
               "setting": {
                 "table": {
@@ -198,7 +198,8 @@
                 }
               },
               "commonSetting": {}
-            }
+            },
+            "helium": {}
           }
         },
         "enabled": true
@@ -207,17 +208,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448695858_1369328855",
-      "id": "paragraph_1757448695858_1369328855",
-      "dateCreated": "2025-09-09T20:11:35+0000",
-      "status": "FINISHED",
-      "focus": true,
-      "$$hashKey": "object:2470",
-      "dateFinished": "2025-09-09T20:15:17+0000",
-      "dateStarted": "2025-09-09T20:15:16+0000",
       "results": {
         "code": "SUCCESS",
         "msg": [
@@ -228,18 +218,24 @@
           {
             "type": "TEXT",
             "data": "current database: slt-8-log-analytics-demo-berndherding\n"
-          },
-          {
-            "type": "TABLE",
-            "data": "database\n"
           }
         ]
-      }
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345913_456265013",
+      "id": "paragraph_1757448695858_1369328855",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "dateStarted": "2025-09-10T11:22:44+0000",
+      "dateFinished": "2025-09-10T11:22:45+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2974"
     },
     {
       "text": "%flink.ssql\nUSE `slt-8-log-analytics-demo-berndherding`;\nSELECT * FROM INGESTION_STREAM;",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:23:06+0000",
+      "dateUpdated": "2025-09-10T11:36:15+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -308,53 +304,8 @@
               ]
             },
             "helium": {}
-          }
-        },
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_310835148",
-      "id": "paragraph_1705008013511_692403677",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "PENDING",
-      "$$hashKey": "object:1203",
-      "dateFinished": "2025-09-09T20:23:08+0000",
-      "dateStarted": "2025-09-09T20:23:06+0000",
-      "results": {
-        "code": "ERROR",
-        "msg": [
-          {
-            "type": "ANGULAR",
-            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Access denied when retrieving resource.</div>\n            <div class='plainTextContainer' style='white-space:pre-wrap'>Insufficient Lake Formation permission(s) on hive (Service: AWSGlue; Status Code: 400; Error Code: AccessDeniedException; Request ID: a564fec5-fbdc-4977-9f16-4c0ef9ae3b93; Proxy: null)</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>org.apache.flink.table.catalog.exceptions.CatalogException: Failed to determine whether database hive exists or not\n\tat org.apache.flink.table.catalog.hive.HiveCatalog.databaseExists(HiveCatalog.java:455)\n\tat org.apache.flink.table.catalog.CatalogManager.lambda$permanentDatabaseExists$10(CatalogManager.java:623)\n\tat java.base/java.util.Optional.map(Optional.java:265)\n\tat org.apache.flink.table.catalog.CatalogManager.permanentDatabaseExists(CatalogManager.java:623)\n\tat org.apache.flink.table.catalog.CatalogManager.schemaExists(CatalogManager.java:611)\n\tat org.apache.flink.table.planner.catalog.CatalogCalciteSchema.getSubSchema(CatalogCalciteSchema.java:61)\n\tat org.apache.calcite.jdbc.SimpleCalciteSchema.getImplicitSubSchema(SimpleCalciteSchema.java:73)\n\tat org.apache.calcite.jdbc.CalciteSchema.getSubSchema(CalciteSchema.java:265)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getSchema(SqlValidatorUtil.java:1047)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getTableEntry(SqlValidatorUtil.java:1009)\n\tat org.apache.calcite.prepare.CalciteCatalogReader.getTable(CalciteCatalogReader.java:119)\n\tat org.apache.flink.table.planner.plan.FlinkCalciteCatalogReader.getTable(FlinkCalciteCatalogReader.java:85)\n\tat org.apache.calcite.prepare.CalciteCatalogReader.getTableForMember(CalciteCatalogReader.java:229)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getRelOptTable(SqlValidatorUtil.java:144)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getRelOptTable(SqlValidatorUtil.java:110)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertIdentifier(SqlToRelConverter.java:2490)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertFrom(SqlToRelConverter.java:2144)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertFrom(SqlToRelConverter.java:2093)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertFrom(SqlToRelConverter.java:2050)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertSelectImpl(SqlToRelConverter.java:663)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertSelect(SqlToRelConverter.java:644)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertQueryRecursive(SqlToRelConverter.java:3438)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertQuery(SqlToRelConverter.java:570)\n\tat org.apache.flink.table.planner.calcite.FlinkPlannerImpl.org$apache$flink$table$planner$calcite$FlinkPlannerImpl$$rel(FlinkPlannerImpl.scala:197)\n\tat org.apache.flink.table.planner.calcite.FlinkPlannerImpl.rel(FlinkPlannerImpl.scala:189)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.toQueryOperation(SqlToOperationConverter.java:1240)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.convertSqlQuery(SqlToOperationConverter.java:1188)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.convertValidatedSqlNode(SqlToOperationConverter.java:345)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.convert(SqlToOperationConverter.java:238)\n\tat org.apache.flink.table.planner.delegation.ParserImpl.parse(ParserImpl.java:105)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:228)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: MetaException(message:Insufficient Lake Formation permission(s) on hive (Service: AWSGlue; Status Code: 400; Error Code: AccessDeniedException; Request ID: a564fec5-fbdc-4977-9f16-4c0ef9ae3b93; Proxy: null))\n\tat com.amazonaws.glue.catalog.converters.CatalogToHiveConverter.getHiveException(CatalogToHiveConverter.java:113)\n\tat com.amazonaws.glue.catalog.converters.CatalogToHiveConverter.wrapInHiveException(CatalogToHiveConverter.java:101)\n\tat com.amazonaws.glue.catalog.metastore.GlueMetastoreClientDelegate.getDatabase(GlueMetastoreClientDelegate.java:261)\n\tat com.amazonaws.glue.catalog.metastore.AWSCatalogMetastoreClient.getDatabase(AWSCatalogMetastoreClient.java:321)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n\tat org.apache.hadoop.hive.metastore.HiveMetaStoreClient$SynchronizedHandler.invoke(HiveMetaStoreClient.java:2773)\n\tat com.sun.proxy.$Proxy43.getDatabase(Unknown Source)\n\tat org.apache.flink.table.catalog.hive.client.HiveMetastoreClientWrapper.getDatabase(HiveMetastoreClientWrapper.java:130)\n\tat org.apache.flink.table.catalog.hive.HiveCatalog.databaseExists(HiveCatalog.java:450)\n\t... 43 more\n</div>\n        </div>\n    </div>\n</div>"
-          }
-        ]
-      }
-    },
-    {
-      "text": "--%flink.ssql(type=update, parallelism=2, refreshInterval=10000)\n--SELECT\n--  TUMBLE_START(event_time, INTERVAL '1' HOUR) as event_window,\n--  response as status,\n--  COUNT(*) as statusCount\n--FROM AWS_1_WEB_LOG_INGESTION\n--GROUP BY response, TUMBLE(event_time, INTERVAL '1' HOUR)\n",
-      "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:06+0000",
-      "progress": 0,
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "scala",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/scala",
-        "fontSize": 9,
-        "editorHide": false,
-        "results": {
-          "0": {
+          },
+          "2": {
             "graph": {
               "mode": "table",
               "height": 300,
@@ -364,9 +315,13 @@
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
-                      "event_window": "string",
-                      "status": "string",
-                      "statusCount": "string"
+                      "host": "string",
+                      "datetime": "string",
+                      "request": "string",
+                      "response": "string",
+                      "referer": "string",
+                      "agent": "string",
+                      "event_time": "string"
                     },
                     "updated": false
                   },
@@ -378,27 +333,229 @@
                   },
                   "updated": false,
                   "initialized": false
-                },
-                "pieChart": {}
+                }
               },
-              "commonSetting": {},
-              "keys": [
-                {
-                  "name": "status",
-                  "index": 1,
-                  "aggr": "sum"
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT * FROM INGESTION_STREAM\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 47fa698c9db1e6ff8ca37aaecb462dc0)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 47fa698c9db1e6ff8ca37aaecb462dc0)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/47fa698c9db1e6ff8ca37aaecb462dc0",
+              "$$hashKey": "object:72795"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345913_573729363",
+      "id": "paragraph_1705008013511_692403677",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "dateStarted": "2025-09-10T11:24:28+0000",
+      "dateFinished": "2025-09-10T11:36:14+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:2975"
+    },
+    {
+      "text": "%flink.ssql\n--DROP TABLE IF EXISTS DELIVERY_STREAM;\nCREATE OR REPLACE TABLE DELIVERY_STREAM (\n    datetime TIMESTAMP(3),\n    status   INTEGER,\n    statusCount BIGINT\n) WITH (\n   'connector'  = 'firehose',\n   'delivery-stream' = 'slt-8-log-analytics-demo-berndherding-delivery-firehose',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json'\n);",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-10T10:15:45+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345914_1418355907",
+      "id": "paragraph_1705007853049_14541704",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "status": "READY",
+      "$$hashKey": "object:2977"
+    },
+    {
+      "text": "%flink.ssql(type = update)\nINSERT INTO DELIVERY_STREAM\nSELECT\n  TUMBLE_START(event_time, INTERVAL '1' HOUR) as datetime,\n  response as status,\n  COUNT(*) as statusCount\nFROM INGESTION_STREAM\nGROUP BY response, TUMBLE(event_time, INTERVAL '1' HOUR)\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-10T10:15:45+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345914_1409948095",
+      "id": "paragraph_1705231557046_1939939569",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "status": "READY",
+      "$$hashKey": "object:2978"
+    },
+    {
+      "text": "%flink.ssql(type=single, parallelism=2, refreshInterval=1000, template=<h1>{0}</h1> records seen)\nSELECT\n  COUNT(`response`) as records\nFROM\n  `INGESTION_STREAM`",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-10T11:38:41+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/89b46710145909b6270d40967304b763",
+              "$$hashKey": "object:81076"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757499345914_859988698",
+      "id": "paragraph_1705007025082_2103076117",
+      "dateCreated": "2025-09-10T10:15:45+0000",
+      "status": "ABORT",
+      "$$hashKey": "object:2979",
+      "dateFinished": "2025-09-10T11:48:31+0000",
+      "dateStarted": "2025-09-10T11:38:41+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "<h1>{{value_0}}</h1> records seen\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT\n  COUNT(`response`) as records\nFROM\n  `INGESTION_STREAM`\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run single type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:68)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:66)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 89b46710145909b6270d40967304b763)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 89b46710145909b6270d40967304b763)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\nSELECT\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nWHERE event_time >= CURRENT_TIMESTAMP - INTERVAL '10' SECOND\nGROUP BY response;\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-10T11:54:40+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "response": "string",
+                      "cnt": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
                 }
-              ],
-              "groups": [],
-              "values": [
-                {
-                  "name": "statusCount",
-                  "index": 2,
-                  "aggr": "sum"
-                }
-              ]
-            },
-            "helium": {}
+              },
+              "commonSetting": {}
+            }
           }
         },
         "enabled": true
@@ -408,21 +565,54 @@
         "forms": {}
       },
       "apps": [],
-      "runtimeInfos": {},
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/e7402d52a5bfa59e50c98e4bc71c6516",
+              "$$hashKey": "object:88182"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_1824004138",
-      "id": "paragraph_1704924706842_356707723",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "READY",
-      "$$hashKey": "object:1204"
+      "jobName": "paragraph_1757504972189_1143710742",
+      "id": "paragraph_1757504972189_1143710742",
+      "dateCreated": "2025-09-10T11:49:32+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:81597",
+      "dateFinished": "2025-09-10T12:01:40+0000",
+      "dateStarted": "2025-09-10T11:54:36+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "response\tcnt\n200\t246754\n301\t10821\n404\t10977\n500\t5484\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nWHERE event_time >= CURRENT_TIMESTAMP - INTERVAL '10' SECOND\nGROUP BY response\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: e7402d52a5bfa59e50c98e4bc71c6516)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: e7402d52a5bfa59e50c98e4bc71c6516)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
     },
     {
-      "text": "%flink.ssql\n--DROP TABLE IF EXISTS DELIVERY_STREAM;\nCREATE OR REPLACE TABLE DELIVERY_STREAM (\n    datetime TIMESTAMP(3),\n    status   INTEGER,\n    statusCount BIGINT\n) WITH (\n   'connector'  = 'firehose',\n   'delivery-stream' = 'slt-8-log-analytics-demo-berndherding-delivery-firehose',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json'\n);",
+      "text": "%flink.ssql\n-- 1️⃣ Parallelität niedrig halten, damit der Job in der Notebook-Session läuft\nSET 'parallelism.default' = '1';\n\n-- 2️⃣ Auf die richtige Database wechseln\nUSE `slt-8-log-analytics-demo-berndherding`;\n\n-- 3️⃣ Sliding Processing-Time Fenster (10 Sekunden) Aggregation\nSELECT\n    response,\n    COUNT(*) AS cnt,\n    PROCTIME() - INTERVAL '10' SECOND AS window_start,\n    PROCTIME() AS window_end\nFROM INGESTION_STREAM\nWHERE event_time >= PROCTIME() - INTERVAL '10' SECOND\nGROUP BY response;\n",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "dateUpdated": "2025-09-10T12:15:33+0000",
       "progress": 0,
       "config": {
-        "tableHide": false,
         "editorSetting": {
           "language": "sql",
           "editOnDblClick": false,
@@ -432,39 +622,38 @@
         "colWidth": 12,
         "editorMode": "ace/mode/sql",
         "fontSize": 9,
-        "editorHide": false,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_960171585",
-      "id": "paragraph_1705007853049_14541704",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "READY",
-      "$$hashKey": "object:1205"
-    },
-    {
-      "text": "%flink.ssql(type = update)\nINSERT INTO DELIVERY_STREAM\nSELECT\n  TUMBLE_START(event_time, INTERVAL '1' HOUR) as datetime,\n  response as status,\n  COUNT(*) as statusCount\nFROM INGESTION_STREAM\nGROUP BY response, TUMBLE(event_time, INTERVAL '1' HOUR)\n",
-      "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:06+0000",
-      "progress": 0,
-      "config": {
-        "editorSetting": {
-          "language": "sql",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "response": "string",
+                      "cnt": "string",
+                      "window_start": "string",
+                      "window_end": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
         },
-        "colWidth": 12,
-        "editorMode": "ace/mode/sql",
-        "fontSize": 9,
-        "results": {},
         "enabled": true
       },
       "settings": {
@@ -472,64 +661,65 @@
         "forms": {}
       },
       "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_763517432",
-      "id": "paragraph_1705231557046_1939939569",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "READY",
-      "$$hashKey": "object:1206"
-    },
-    {
-      "text": "%flink.ssql(type=single, parallelism=2, refreshInterval=1000, template=<h1>{0}</h1> records seen)\nSELECT\n  COUNT(`response`) as records\nFROM\n  `INGESTION_STREAM`",
-      "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:06+0000",
-      "progress": 0,
-      "config": {
-        "tableHide": false,
-        "editorSetting": {
-          "language": "sql",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/sql",
-        "fontSize": 9,
-        "editorHide": false,
-        "results": {},
-        "enabled": true
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/244080221d178615bb13fff6c0848082",
+              "$$hashKey": "object:90844"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
       },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_820430966",
-      "id": "paragraph_1705007025082_2103076117",
-      "dateCreated": "2025-09-09T20:05:06+0000",
-      "status": "READY",
-      "$$hashKey": "object:1207"
+      "jobName": "paragraph_1757505949706_464220823",
+      "id": "paragraph_1757505949706_464220823",
+      "dateCreated": "2025-09-10T12:05:49+0000",
+      "status": "ERROR",
+      "focus": true,
+      "$$hashKey": "object:88198",
+      "dateFinished": "2025-09-10T12:16:30+0000",
+      "dateStarted": "2025-09-10T12:15:29+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "response\tcnt\twindow_start\twindow_end\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT\n    response,\n    COUNT(*) AS cnt,\n    PROCTIME() - INTERVAL '10' SECOND AS window_start,\n    PROCTIME() AS window_end\nFROM INGESTION_STREAM\nWHERE event_time >= PROCTIME() - INTERVAL '10' SECOND\nGROUP BY response\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>FlinkException: The TaskExecutor is shutting down.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 244080221d178615bb13fff6c0848082)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2005)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 244080221d178615bb13fff6c0848082)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2079)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobExecutionException: Job execution failed.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:144)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\nCaused by: org.apache.flink.runtime.JobException: Recovery is suppressed by NoRestartBackoffTimeStrategy\n\tat org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.handleFailure(ExecutionFailureHandler.java:138)\n\tat org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.getFailureHandlingResult(ExecutionFailureHandler.java:82)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.handleTaskFailure(DefaultScheduler.java:309)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.maybeHandleTaskFailure(DefaultScheduler.java:299)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.updateTaskExecutionStateInternal(DefaultScheduler.java:290)\n\tat org.apache.flink.runtime.scheduler.SchedulerBase.updateTaskExecutionState(SchedulerBase.java:792)\n\tat org.apache.flink.runtime.scheduler.UpdateSchedulerNgOnInternalFailuresListener.notifyTaskFailure(UpdateSchedulerNgOnInternalFailuresListener.java:51)\n\tat org.apache.flink.runtime.executiongraph.DefaultExecutionGraph.notifySchedulerNgAboutInternalTaskFailure(DefaultExecutionGraph.java:1603)\n\tat org.apache.flink.runtime.executiongraph.Execution.processFail(Execution.java:1129)\n\tat org.apache.flink.runtime.executiongraph.Execution.processFail(Execution.java:1069)\n\tat org.apache.flink.runtime.executiongraph.Execution.fail(Execution.java:770)\n\tat org.apache.flink.runtime.jobmaster.slotpool.SingleLogicalSlot.signalPayloadRelease(SingleLogicalSlot.java:195)\n\tat org.apache.flink.runtime.jobmaster.slotpool.SingleLogicalSlot.release(SingleLogicalSlot.java:182)\n\tat org.apache.flink.runtime.scheduler.SharedSlot.lambda$release$4(SharedSlot.java:271)\n\tat java.base/java.util.concurrent.CompletableFuture.uniAcceptNow(CompletableFuture.java:753)\n\tat java.base/java.util.concurrent.CompletableFuture.uniAcceptStage(CompletableFuture.java:731)\n\tat java.base/java.util.concurrent.CompletableFuture.thenAccept(CompletableFuture.java:2108)\n\tat org.apache.flink.runtime.scheduler.SharedSlot.release(SharedSlot.java:271)\n\tat org.apache.flink.runtime.jobmaster.slotpool.AllocatedSlot.releasePayload(AllocatedSlot.java:152)\n\tat org.apache.flink.runtime.jobmaster.slotpool.DefaultDeclarativeSlotPool.releasePayload(DefaultDeclarativeSlotPool.java:482)\n\tat org.apache.flink.runtime.jobmaster.slotpool.DefaultDeclarativeSlotPool.freeAndReleaseSlots(DefaultDeclarativeSlotPool.java:474)\n\tat org.apache.flink.runtime.jobmaster.slotpool.DefaultDeclarativeSlotPool.releaseSlots(DefaultDeclarativeSlotPool.java:445)\n\tat org.apache.flink.runtime.jobmaster.slotpool.DeclarativeSlotPoolService.internalReleaseTaskManager(DeclarativeSlotPoolService.java:249)\n\tat org.apache.flink.runtime.jobmaster.slotpool.DeclarativeSlotPoolService.releaseTaskManager(DeclarativeSlotPoolService.java:230)\n\tat org.apache.flink.runtime.jobmaster.JobMaster.disconnectTaskManager(JobMaster.java:514)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.lambda$handleRpcInvocation$1(AkkaRpcActor.java:304)\n\tat org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.runWithContextClassLoader(ClassLoadingUtils.java:83)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcInvocation(AkkaRpcActor.java:302)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcMessage(AkkaRpcActor.java:217)\n\tat org.apache.flink.runtime.rpc.akka.FencedAkkaRpcActor.handleRpcMessage(FencedAkkaRpcActor.java:78)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleMessage(AkkaRpcActor.java:163)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:24)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:20)\n\tat scala.PartialFunction.applyOrElse(PartialFunction.scala:123)\n\tat scala.PartialFunction.applyOrElse$(PartialFunction.scala:122)\n\tat akka.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:20)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:171)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:172)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:172)\n\tat akka.actor.Actor.aroundReceive(Actor.scala:537)\n\tat akka.actor.Actor.aroundReceive$(Actor.scala:535)\n\tat akka.actor.AbstractActor.aroundReceive(AbstractActor.scala:220)\n\tat akka.actor.ActorCell.receiveMessage(ActorCell.scala:580)\n\tat akka.actor.ActorCell.invoke(ActorCell.scala:548)\n\tat akka.dispatch.Mailbox.processMailbox(Mailbox.scala:270)\n\tat akka.dispatch.Mailbox.run(Mailbox.scala:231)\n\tat akka.dispatch.Mailbox.exec(Mailbox.scala:243)\n\tat java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)\n\tat java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)\n\tat java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)\n\tat java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)\n\tat java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)\nCaused by: org.apache.flink.util.FlinkException: The TaskExecutor is shutting down.\n\tat org.apache.flink.runtime.taskexecutor.TaskExecutor.onStop(TaskExecutor.java:456)\n\tat org.apache.flink.runtime.rpc.RpcEndpoint.internalCallOnStop(RpcEndpoint.java:214)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor$StartedState.lambda$terminate$0(AkkaRpcActor.java:568)\n\tat org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.runWithContextClassLoader(ClassLoadingUtils.java:83)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor$StartedState.terminate(AkkaRpcActor.java:567)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleControlMessage(AkkaRpcActor.java:191)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:24)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:20)\n\tat scala.PartialFunction.applyOrElse(PartialFunction.scala:123)\n\tat scala.PartialFunction.applyOrElse$(PartialFunction.scala:122)\n\tat akka.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:20)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:171)\n\t... 14 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
     },
     {
       "text": "%flink.ssql\n",
       "user": "anonymous",
-      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "dateUpdated": "2025-09-10T12:15:29+0000",
       "progress": 0,
       "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
         "editorSetting": {
           "language": "sql",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
-        "editorMode": "ace/mode/sql",
-        "fontSize": 9,
-        "results": {},
-        "enabled": true
+        "editorMode": "ace/mode/sql"
       },
       "settings": {
         "params": {},
@@ -538,15 +728,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1757448306270_205711782",
-      "id": "paragraph_1705231906633_2054829174",
-      "dateCreated": "2025-09-09T20:05:06+0000",
+      "jobName": "paragraph_1757506529224_1641351127",
+      "id": "paragraph_1757506529224_1641351127",
+      "dateCreated": "2025-09-10T12:15:29+0000",
       "status": "READY",
-      "$$hashKey": "object:1208"
+      "focus": true,
+      "$$hashKey": "object:89499"
     }
   ],
   "name": "Led Zeppelin",
-  "id": "2M4E4WMKR",
+  "id": "2M7DZZ9TN",
   "defaultInterpreterGroup": "flink",
   "version": "0.10.1",
   "noteParams": {},

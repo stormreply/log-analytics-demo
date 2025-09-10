@@ -2,8 +2,11 @@
 resource "time_sleep" "iam_propagation" {
   depends_on = [
     aws_iam_role_policy_attachment.zeppelin_notebook,
-    aws_lakeformation_permissions.zeppelin_db,
-    aws_glue_catalog_database.glue_database
+    aws_lakeformation_permissions.zeppelin_database,
+    aws_glue_catalog_database.zeppelin_database,
+    aws_lakeformation_permissions.hive,
+    aws_glue_catalog_database.hive
+
   ]
   create_duration = "30s"
 }
@@ -31,7 +34,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
     zeppelin_application_configuration = {
       catalog_configuration = {
         glue_data_catalog_configuration = {
-          database_arn = aws_glue_catalog_database.glue_database.arn
+          database_arn = aws_glue_catalog_database.zeppelin_database.arn
         }
       }
       custom_artifacts_configuration = [

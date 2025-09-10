@@ -93,7 +93,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "glue:GetDatabase"
     ]
     resources = [
-      aws_glue_catalog_database.glue_database.arn,
+      aws_glue_catalog_database.zeppelin_database.arn,
       "arn:aws:glue:${local.region}:${local.account_id}:database/*",
       "arn:aws:glue:${local.region}:${local.account_id}:database/default",
       "arn:aws:glue:${local.region}:${local.account_id}:database/hive",
@@ -120,8 +120,8 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "glue:UpdateTable"
     ]
     resources = [
-      "arn:aws:glue:${local.region}:${local.account_id}:table/${aws_glue_catalog_database.glue_database.name}/*",
-      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.glue_database.name}",
+      "arn:aws:glue:${local.region}:${local.account_id}:table/${aws_glue_catalog_database.zeppelin_database.name}/*",
+      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.zeppelin_database.name}",
       "arn:aws:glue:${local.region}:${local.account_id}:catalog"
     ]
   }
@@ -141,7 +141,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     ]
     resources = [
       "arn:aws:glue:${local.region}:${local.account_id}:catalog",
-      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.glue_database.name}",
+      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.zeppelin_database.name}",
       "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/ingestion_stream"
     ]
   }
@@ -152,7 +152,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     ]
     resources = [
       "arn:aws:glue:${local.region}:${local.account_id}:catalog",
-      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.glue_database.name}",
+      "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.zeppelin_database.name}",
       "arn:aws:glue:${local.region}:${local.account_id}:userDefinedFunction/*"
     ]
   }
@@ -187,14 +187,5 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     resources = [ # TODO: too permissive
       "*"
     ]
-  }
-}
-
-resource "aws_lakeformation_permissions" "zeppelin_db" {
-  principal   = aws_iam_role.zeppelin_notebook.arn
-  permissions = ["ALL"]
-
-  database {
-    name = aws_glue_catalog_database.glue_database.name
   }
 }
