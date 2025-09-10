@@ -49,6 +49,8 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
     aws_iam_policy.zeppelin_notebook,
     aws_iam_role.zeppelin_notebook,
     aws_iam_role_policy_attachment.zeppelin_notebook,
+    aws_lakeformation_permissions.zeppelin_db,
+    aws_glue_catalog_database.glue_database,
     aws_s3_object.connector_jar
   ]
 }
