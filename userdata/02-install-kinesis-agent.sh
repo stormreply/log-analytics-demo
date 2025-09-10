@@ -16,14 +16,15 @@ cat << EOT > /etc/aws-kinesis/agent.json
 "kinesis.endpoint": "kinesis.eu-central-1.amazonaws.com",
 "flows": [
     {
-    "filePattern": "/apache/logs/_access_log_*.log",
-    "kinesisStream": "${deployment_name}-ingestion-stream",
-    "dataProcessingOptions": [
-        {
-        "optionName": "LOGTOJSON",
-        "logFormat": "COMBINEDAPACHELOG"
-        }
-    ]
+        "filePattern": "/apache/logs/_access_log_*.log",
+        "kinesisStream": "${deployment_name}-ingestion-stream",
+        "dataProcessingOptions": [
+            {
+            "optionName": "LOGTOJSON",
+            "logFormat": "COMBINEDAPACHELOG"
+            }
+        ],
+        "maxBufferAgeMillis": 10000
     }
 ]
 }
