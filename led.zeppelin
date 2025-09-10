@@ -1,0 +1,562 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%flink.pyflink\nimport datetime\n\nclass ToMyTimestamp(ScalarFunction):\n    def eval(self, s):\n        return datetime.datetime.strptime(s, '%d/%b/%Y:%H:%M:%S %z')\n        \nst_env.register_function(\"to_my_timestamp\", udf(ToMyTimestamp(), DataTypes.STRING(), DataTypes.TIMESTAMP_LTZ(3)))",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:19+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306269_238563481",
+      "id": "paragraph_1704923334530_1945960578",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:1200",
+      "dateFinished": "2025-09-09T20:05:20+0000",
+      "dateStarted": "2025-09-09T20:05:19+0000"
+    },
+    {
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS INGESTION_STREAM;\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS to_my_timestamp(datetime),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) PARTITIONED BY (response) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-berndherding-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:40+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_1566511610",
+      "id": "paragraph_1704886836276_664265219",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:1201",
+      "dateFinished": "2025-09-09T20:05:43+0000",
+      "dateStarted": "2025-09-09T20:05:40+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Table has been dropped.\nTable has been created.\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\nDESCRIBE INGESTION_STREAM",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:53+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": true,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "Column": "string",
+                      "Type": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_323350254",
+      "id": "paragraph_1705059499174_1731761252",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:1202",
+      "dateFinished": "2025-09-09T20:05:54+0000",
+      "dateStarted": "2025-09-09T20:05:54+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "Column\tType\nhost\tVARCHAR(15)\ndatetime\tVARCHAR(30)\nrequest\tVARCHAR(500)\nresponse\tINT\nreferer\tVARCHAR(500)\nagent\tVARCHAR(500)\nevent_time\tTIMESTAMP_LTZ(3) *ROWTIME*\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\nSHOW CURRENT CATALOG;\nSHOW CURRENT DATABASE;\nSHOW DATABASES;",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:15:16+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "2": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "database": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448695858_1369328855",
+      "id": "paragraph_1757448695858_1369328855",
+      "dateCreated": "2025-09-09T20:11:35+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:2470",
+      "dateFinished": "2025-09-09T20:15:17+0000",
+      "dateStarted": "2025-09-09T20:15:16+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "current catalog: hive\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "current database: slt-8-log-analytics-demo-berndherding\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "database\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\nUSE `slt-8-log-analytics-demo-berndherding`;\nSELECT * FROM INGESTION_STREAM;",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:23:06+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "host": "string",
+                      "datetime": "string",
+                      "request": "string",
+                      "response": "string",
+                      "referer": "string",
+                      "agent": "string",
+                      "event_time": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "response",
+                  "index": 3,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "response",
+                  "index": 3,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_310835148",
+      "id": "paragraph_1705008013511_692403677",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "PENDING",
+      "$$hashKey": "object:1203",
+      "dateFinished": "2025-09-09T20:23:08+0000",
+      "dateStarted": "2025-09-09T20:23:06+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Access denied when retrieving resource.</div>\n            <div class='plainTextContainer' style='white-space:pre-wrap'>Insufficient Lake Formation permission(s) on hive (Service: AWSGlue; Status Code: 400; Error Code: AccessDeniedException; Request ID: a564fec5-fbdc-4977-9f16-4c0ef9ae3b93; Proxy: null)</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>org.apache.flink.table.catalog.exceptions.CatalogException: Failed to determine whether database hive exists or not\n\tat org.apache.flink.table.catalog.hive.HiveCatalog.databaseExists(HiveCatalog.java:455)\n\tat org.apache.flink.table.catalog.CatalogManager.lambda$permanentDatabaseExists$10(CatalogManager.java:623)\n\tat java.base/java.util.Optional.map(Optional.java:265)\n\tat org.apache.flink.table.catalog.CatalogManager.permanentDatabaseExists(CatalogManager.java:623)\n\tat org.apache.flink.table.catalog.CatalogManager.schemaExists(CatalogManager.java:611)\n\tat org.apache.flink.table.planner.catalog.CatalogCalciteSchema.getSubSchema(CatalogCalciteSchema.java:61)\n\tat org.apache.calcite.jdbc.SimpleCalciteSchema.getImplicitSubSchema(SimpleCalciteSchema.java:73)\n\tat org.apache.calcite.jdbc.CalciteSchema.getSubSchema(CalciteSchema.java:265)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getSchema(SqlValidatorUtil.java:1047)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getTableEntry(SqlValidatorUtil.java:1009)\n\tat org.apache.calcite.prepare.CalciteCatalogReader.getTable(CalciteCatalogReader.java:119)\n\tat org.apache.flink.table.planner.plan.FlinkCalciteCatalogReader.getTable(FlinkCalciteCatalogReader.java:85)\n\tat org.apache.calcite.prepare.CalciteCatalogReader.getTableForMember(CalciteCatalogReader.java:229)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getRelOptTable(SqlValidatorUtil.java:144)\n\tat org.apache.calcite.sql.validate.SqlValidatorUtil.getRelOptTable(SqlValidatorUtil.java:110)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertIdentifier(SqlToRelConverter.java:2490)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertFrom(SqlToRelConverter.java:2144)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertFrom(SqlToRelConverter.java:2093)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertFrom(SqlToRelConverter.java:2050)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertSelectImpl(SqlToRelConverter.java:663)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertSelect(SqlToRelConverter.java:644)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertQueryRecursive(SqlToRelConverter.java:3438)\n\tat org.apache.calcite.sql2rel.SqlToRelConverter.convertQuery(SqlToRelConverter.java:570)\n\tat org.apache.flink.table.planner.calcite.FlinkPlannerImpl.org$apache$flink$table$planner$calcite$FlinkPlannerImpl$$rel(FlinkPlannerImpl.scala:197)\n\tat org.apache.flink.table.planner.calcite.FlinkPlannerImpl.rel(FlinkPlannerImpl.scala:189)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.toQueryOperation(SqlToOperationConverter.java:1240)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.convertSqlQuery(SqlToOperationConverter.java:1188)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.convertValidatedSqlNode(SqlToOperationConverter.java:345)\n\tat org.apache.flink.table.planner.operations.SqlToOperationConverter.convert(SqlToOperationConverter.java:238)\n\tat org.apache.flink.table.planner.delegation.ParserImpl.parse(ParserImpl.java:105)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:228)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: MetaException(message:Insufficient Lake Formation permission(s) on hive (Service: AWSGlue; Status Code: 400; Error Code: AccessDeniedException; Request ID: a564fec5-fbdc-4977-9f16-4c0ef9ae3b93; Proxy: null))\n\tat com.amazonaws.glue.catalog.converters.CatalogToHiveConverter.getHiveException(CatalogToHiveConverter.java:113)\n\tat com.amazonaws.glue.catalog.converters.CatalogToHiveConverter.wrapInHiveException(CatalogToHiveConverter.java:101)\n\tat com.amazonaws.glue.catalog.metastore.GlueMetastoreClientDelegate.getDatabase(GlueMetastoreClientDelegate.java:261)\n\tat com.amazonaws.glue.catalog.metastore.AWSCatalogMetastoreClient.getDatabase(AWSCatalogMetastoreClient.java:321)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n\tat org.apache.hadoop.hive.metastore.HiveMetaStoreClient$SynchronizedHandler.invoke(HiveMetaStoreClient.java:2773)\n\tat com.sun.proxy.$Proxy43.getDatabase(Unknown Source)\n\tat org.apache.flink.table.catalog.hive.client.HiveMetastoreClientWrapper.getDatabase(HiveMetastoreClientWrapper.java:130)\n\tat org.apache.flink.table.catalog.hive.HiveCatalog.databaseExists(HiveCatalog.java:450)\n\t... 43 more\n</div>\n        </div>\n    </div>\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "--%flink.ssql(type=update, parallelism=2, refreshInterval=10000)\n--SELECT\n--  TUMBLE_START(event_time, INTERVAL '1' HOUR) as event_window,\n--  response as status,\n--  COUNT(*) as statusCount\n--FROM AWS_1_WEB_LOG_INGESTION\n--GROUP BY response, TUMBLE(event_time, INTERVAL '1' HOUR)\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "event_window": "string",
+                      "status": "string",
+                      "statusCount": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "pieChart": {}
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "status",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "statusCount",
+                  "index": 2,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_1824004138",
+      "id": "paragraph_1704924706842_356707723",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "READY",
+      "$$hashKey": "object:1204"
+    },
+    {
+      "text": "%flink.ssql\n--DROP TABLE IF EXISTS DELIVERY_STREAM;\nCREATE OR REPLACE TABLE DELIVERY_STREAM (\n    datetime TIMESTAMP(3),\n    status   INTEGER,\n    statusCount BIGINT\n) WITH (\n   'connector'  = 'firehose',\n   'delivery-stream' = 'slt-8-log-analytics-demo-berndherding-delivery-firehose',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json'\n);",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_960171585",
+      "id": "paragraph_1705007853049_14541704",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "READY",
+      "$$hashKey": "object:1205"
+    },
+    {
+      "text": "%flink.ssql(type = update)\nINSERT INTO DELIVERY_STREAM\nSELECT\n  TUMBLE_START(event_time, INTERVAL '1' HOUR) as datetime,\n  response as status,\n  COUNT(*) as statusCount\nFROM INGESTION_STREAM\nGROUP BY response, TUMBLE(event_time, INTERVAL '1' HOUR)\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_763517432",
+      "id": "paragraph_1705231557046_1939939569",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "READY",
+      "$$hashKey": "object:1206"
+    },
+    {
+      "text": "%flink.ssql(type=single, parallelism=2, refreshInterval=1000, template=<h1>{0}</h1> records seen)\nSELECT\n  COUNT(`response`) as records\nFROM\n  `INGESTION_STREAM`",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_820430966",
+      "id": "paragraph_1705007025082_2103076117",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "READY",
+      "$$hashKey": "object:1207"
+    },
+    {
+      "text": "%flink.ssql\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-09-09T20:05:06+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1757448306270_205711782",
+      "id": "paragraph_1705231906633_2054829174",
+      "dateCreated": "2025-09-09T20:05:06+0000",
+      "status": "READY",
+      "$$hashKey": "object:1208"
+    }
+  ],
+  "name": "Led Zeppelin",
+  "id": "2M4E4WMKR",
+  "defaultInterpreterGroup": "flink",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/Led Zeppelin"
+}
