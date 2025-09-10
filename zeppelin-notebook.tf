@@ -1,3 +1,13 @@
+# Add a delay to ensure IAM policies are fully propagated
+resource "time_sleep" "iam_propagation" {
+  depends_on = [
+    aws_iam_role_policy_attachment.zeppelin_notebook,
+    aws_lakeformation_permissions.zeppelin_db,
+    aws_glue_catalog_database.glue_database
+  ]
+  create_duration = "30s"
+}
+
 resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
   application_name       = var.deployment.name
   application_mode       = "INTERACTIVE"
@@ -46,11 +56,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
     }
   }
   depends_on = [
-    aws_iam_policy.zeppelin_notebook,
-    aws_iam_role.zeppelin_notebook,
-    aws_iam_role_policy_attachment.zeppelin_notebook,
-    aws_lakeformation_permissions.zeppelin_db,
-    aws_glue_catalog_database.glue_database,
+    time_sleep.iam_propagation,
     aws_s3_object.connector_jar
   ]
 }
