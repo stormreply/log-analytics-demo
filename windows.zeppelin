@@ -1,0 +1,68 @@
+{
+  "paragraphs": [
+    {
+      "title": "Define to_my_timestamp UDF",
+      "text": "%flink.pyflink\nimport datetime\n\nclass ToMyTimestamp(ScalarFunction):\n    def eval(self, s):\n        return datetime.datetime.strptime(s, '%d/%b/%Y:%H:%M:%S %z')\n        \nst_env.register_function(\"to_my_timestamp\", udf(ToMyTimestamp(), DataTypes.STRING(), DataTypes.TIMESTAMP_LTZ(3)))",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": true
+        }
+      }
+    },
+    {
+      "title": "Define Kinesis Source Table",
+      "text": "%flink.ssql(type=ddl)\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS TO_TIMESTAMP_LTZ(datetime, 3),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-berndherding-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
+      "config": {
+        "editorMode": "ace/mode/sql"
+      }
+    },
+    {
+      "title": "Tumbling Window (10s)",
+      "text": "%flink.ssql(type=update)\nCREATE OR REPLACE VIEW tumbling_counts AS\nSELECT\n  TUMBLE_END(event_time, INTERVAL '10' SECOND) AS window_end,\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nGROUP BY\n  TUMBLE(event_time, INTERVAL '10' SECOND),\n  response;",
+      "config": {}
+    },
+    {
+      "title": "Hopping Window (10s, slide 5s)",
+      "text": "%flink.ssql(type=update)\nCREATE OR REPLACE VIEW hopping_counts AS\nSELECT\n  HOP_END(event_time, INTERVAL '5' SECOND, INTERVAL '10' SECOND) AS window_end,\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nGROUP BY\n  HOP(event_time, INTERVAL '5' SECOND, INTERVAL '10' SECOND),\n  response;",
+      "config": {}
+    },
+    {
+      "title": "Session Window (30s gap)",
+      "text": "%flink.ssql(type=update)\nCREATE OR REPLACE VIEW session_counts AS\nSELECT\n  SESSION_END(event_time, INTERVAL '30' SECOND) AS session_end,\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nGROUP BY\n  SESSION(event_time, INTERVAL '30' SECOND),\n  response;",
+      "config": {}
+    },
+    {
+      "title": "Cumulative Window (step 5s, max 30s)",
+      "text": "%flink.ssql(type=update)\nCREATE OR REPLACE VIEW cumulative_counts AS\nSELECT\n  CUMULATE_END(event_time, INTERVAL '5' SECOND, INTERVAL '30' SECOND) AS window_end,\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nGROUP BY\n  CUMULATE(event_time, INTERVAL '5' SECOND, INTERVAL '30' SECOND),\n  response;",
+      "config": {}
+    },
+    {
+      "title": "Query Tumbling Counts",
+      "text": "%flink.ssql(type=update)\nSELECT * FROM tumbling_counts;",
+      "config": {}
+    },
+    {
+      "title": "Query Hopping Counts",
+      "text": "%flink.ssql(type=update)\nSELECT * FROM hopping_counts;",
+      "config": {}
+    },
+    {
+      "title": "Query Session Counts",
+      "text": "%flink.ssql(type=update)\nSELECT * FROM session_counts;",
+      "config": {}
+    },
+    {
+      "title": "Query Cumulative Counts",
+      "text": "%flink.ssql(type=update)\nSELECT * FROM cumulative_counts;",
+      "config": {}
+    }
+  ],
+  "name": "Window Comparison on Ingestion Stream",
+  "id": "window-comparison-notebook",
+  "config": {
+    "looknfeel": "default"
+  }
+}
