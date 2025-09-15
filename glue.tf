@@ -3,7 +3,7 @@ resource "aws_glue_catalog_database" "zeppelin_database" {
 }
 
 # Flink needs this
-resource "aws_glue_catalog_database" "hive" {
+resource "aws_glue_catalog_database" "hive_database" {
   description = "Workaround for Flink HiveCatalog default DB"
   name        = "hive"
 }
