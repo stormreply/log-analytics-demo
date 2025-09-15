@@ -5,8 +5,7 @@ resource "time_sleep" "iam_propagation" {
     aws_lakeformation_permissions.zeppelin_database,
     aws_glue_catalog_database.zeppelin_database,
     aws_lakeformation_permissions.hive_database,
-    aws_glue_catalog_database.hive_database,
-    aws_lakeformation_permissions.ingestion_stream_table
+    aws_glue_catalog_database.hive_database
   ]
   create_duration = "30s"
 }
