@@ -1,18 +1,3 @@
-data "external" "lakeformation_enabled" {
-  program = ["bash", "-c", <<EOT
-    if aws lakeformation get-data-lake-settings >/dev/null 2>&1; then
-      echo '{"enabled": "true"}'
-    else
-      echo '{"enabled": "false"}'
-    fi
-  EOT
-  ]
-}
-
-resource "aws_glue_catalog_database" "zeppelin_database" {
-  name = var.deployment.name
-}
-
 resource "aws_lakeformation_permissions" "zeppelin_database" {
   principal   = aws_iam_role.zeppelin_notebook.arn
   permissions = ["ALL"]
@@ -22,14 +7,7 @@ resource "aws_lakeformation_permissions" "zeppelin_database" {
   }
 }
 
-
-resource "aws_glue_catalog_database" "hive" {
-  name = "hive"
-
-  description = "Workaround for Flink HiveCatalog default DB"
-}
-
-resource "aws_lakeformation_permissions" "hive" {
+resource "aws_lakeformation_permissions" "hive_database" {
   principal   = aws_iam_role.zeppelin_notebook.arn
   permissions = ["DESCRIBE"]
   database {
@@ -38,6 +16,15 @@ resource "aws_lakeformation_permissions" "hive" {
   }
 }
 
+resource "aws_lakeformation_permissions" "ingestion_stream_table" {
+  principal   = "arn:aws:iam::541792499640:role/slt-8-log-analytics-demo-berndherding-zeppelin-notebook"
+  permissions = ["SELECT", "DESCRIBE"]
+
+  table {
+    database_name = "slt-8-log-analytics-demo-berndherding"
+    name          = "ingestion_stream"
+  }
+}
 
 
 

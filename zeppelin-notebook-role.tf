@@ -121,8 +121,9 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     ]
     resources = [
       "arn:aws:glue:${local.region}:${local.account_id}:table/${aws_glue_catalog_database.zeppelin_database.name}/*",
-      "arn:aws:glue:${local.region}:${local.account_id}:table/hive/*",
       "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.zeppelin_database.name}",
+      "arn:aws:glue:${local.region}:${local.account_id}:table/hive/*",  # flink default, always needed
+      "arn:aws:glue:${local.region}:${local.account_id}:database/hive", # flink default, always needed
       "arn:aws:glue:${local.region}:${local.account_id}:catalog"
     ]
   }
