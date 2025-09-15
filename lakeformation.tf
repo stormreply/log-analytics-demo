@@ -16,20 +16,14 @@ resource "aws_lakeformation_permissions" "hive_database" {
   }
 }
 
-resource "aws_lakeformation_permissions" "ingestion_stream_table" {
-  principal   = "arn:aws:iam::541792499640:role/slt-8-log-analytics-demo-berndherding-zeppelin-notebook"
-  permissions = ["SELECT", "DESCRIBE"]
+# resource "aws_lakeformation_permissions" "ingestion_stream_table" {
+#   principal   = "arn:aws:iam::541792499640:role/slt-8-log-analytics-demo-berndherding-zeppelin-notebook"
+#   permissions = ["SELECT", "DESCRIBE"]
 
-  table {
-    database_name = "slt-8-log-analytics-demo-berndherding"
-    name          = "ingestion_stream"
-  }
-}
-
-
-
-# locals {
-#   lakeformation_enabled = data.external.lakeformation_enabled.result.enabled == "true"
+#   table {
+#     database_name = "slt-8-log-analytics-demo-berndherding"
+#     name          = "ingestion_stream"
+#   }
 # }
 
 # resource "aws_lakeformation_permissions" "catalog_create_db" {
