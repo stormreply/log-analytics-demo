@@ -18,19 +18,19 @@ data "cloudinit_config" "controller" {
     })
   }
 
-  part {
-    filename     = "03-apache-fake-log-gen.yaml"
-    content_type = "text/cloud-config"
-    content      = <<-EOT
-      #cloud-config
-      write_files:
-        - path: /apache-fake-log-gen.py
-          permissions: '0644'
-          owner: root:root
-          encoding: b64
-          content: ${base64encode(file("${path.module}/userdata/03-apache-fake-log-gen.py"))}
-    EOT
-  }
+  # part {
+  #   filename     = "03-apache-fake-log-gen.yaml"
+  #   content_type = "text/cloud-config"
+  #   content      = <<-EOT
+  #     #cloud-config
+  #     write_files:
+  #       - path: /apache-fake-log-gen.py
+  #         permissions: '0644'
+  #         owner: root:root
+  #         encoding: b64
+  #         content: ${base64encode(file("${path.module}/userdata/03-apache-fake-log-gen.py"))}
+  #   EOT
+  # }
 
   part {
     filename     = "04-start-apache-fake-log-gen.sh"
