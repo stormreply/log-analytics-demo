@@ -1,17 +1,10 @@
 {
+  "name": "Window Comparison on Ingestion Stream",
+  "id": "window-comparison-notebook",
+  "config": {
+    "looknfeel": "default"
+  },
   "paragraphs": [
-    {
-      "title": "Define to_my_timestamp UDF",
-      "text": "%flink.pyflink\nimport datetime\n\nclass ToMyTimestamp(ScalarFunction):\n    def eval(self, s):\n        return datetime.datetime.strptime(s, '%d/%b/%Y:%H:%M:%S %z')\n        \nst_env.register_function(\"to_my_timestamp\", udf(ToMyTimestamp(), DataTypes.STRING(), DataTypes.TIMESTAMP_LTZ(3)))",
-      "config": {
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": true,
-          "completionKey": "TAB",
-          "completionSupport": true
-        }
-      }
-    },
     {
       "title": "Define Kinesis Source Table",
       "text": "%flink.ssql(type=ddl)\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS TO_TIMESTAMP(datetime, 'dd/MMM/yyyy:HH:mm:ss Z'),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-berndherding-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
@@ -48,11 +41,11 @@
       "title": "Query Session Counts",
       "text": "%flink.ssql(type=update)\nSELECT * FROM session_counts;",
       "config": {}
+    },
+    {
+      "title": "Tumbling 10-seconds Pie Chart"
+      "text": "%flink.ssql(type=update)\n\nSELECT response, cnt\nFROM response_distribution\nWHERE window_end = (\n  SELECT MAX(window_end) FROM response_distribution\n);\n",
+      "config": {}
     }
-  ],
-  "name": "Window Comparison on Ingestion Stream",
-  "id": "window-comparison-notebook",
-  "config": {
-    "looknfeel": "default"
-  }
+  ]
 }
