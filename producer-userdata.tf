@@ -26,7 +26,7 @@ data "cloudinit_config" "controller" {
       write_files:
         - path: /apache-fake-log-gen.py
           permissions: '0644'
-          content: file("${path.module}/userdata/03-apache-fake-log-gen.py")
+          content: ${file("${path.module}/userdata/03-apache-fake-log-gen.py")}
     EOT
   }
 
