@@ -19,14 +19,16 @@ data "cloudinit_config" "controller" {
   }
 
   part {
-    filename     = "03-apache-fake-log-gen.py"
+    filename     = "03-apache-fake-log-gen.yaml"
     content_type = "text/cloud-config"
     content      = <<-EOT
       #cloud-config
       write_files:
         - path: /apache-fake-log-gen.py
           permissions: '0644'
-          content: ${file("${path.module}/userdata/03-apache-fake-log-gen.py")}
+          owner: root:root
+          encoding: b64
+          content: ${base64encode(file("${path.module}/userdata/03-apache-fake-log-gen.py"))}
     EOT
   }
 
