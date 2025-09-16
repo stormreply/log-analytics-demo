@@ -144,7 +144,8 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     resources = [
       "arn:aws:glue:${local.region}:${local.account_id}:catalog",
       "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.zeppelin_database.name}",
-      "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/ingestion_stream"
+      # "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/ingestion_stream"
+      "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/*"
     ]
   }
   statement {
