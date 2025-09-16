@@ -30,15 +30,15 @@ data "cloudinit_config" "controller" {
   #   EOT
   # }
 
-  part {
-    filename     = "04-start-apache-fake-log-gen.sh"
-    content_type = "text/x-shellscript"
-    content      = file("${path.module}/userdata/03-install-apache-fake-log-gen.sh")
-  }
+  # part {
+  #   filename     = "04-start-apache-fake-log-gen.sh"
+  #   content_type = "text/x-shellscript"
+  #   content      = file("${path.module}/userdata/03-install-apache-fake-log-gen.sh")
+  # }
 
-  part {
-    filename     = "05-start-ssm-agent.sh"
-    content_type = "text/x-shellscript"
-    content      = file("${path.module}/userdata/04-start-ssm-agent.sh")
-  }
+  # part {
+  #   filename     = "05-start-ssm-agent.sh"
+  #   content_type = "text/x-shellscript"
+  #   content      = file("${path.module}/userdata/04-start-ssm-agent.sh")
+  # }
 }
