@@ -2,15 +2,11 @@
 
 echo "BEGIN -- 03-install-apache-fake-log-gen.sh"
 
-sudo pip install pytz
 sudo pip install numpy
 sudo pip install faker
 sudo pip install tzlocal
 
-curl -L -o apache-fake-log-gen.py \
-    https://raw.githubusercontent.com/kiritbasu/Fake-Apache-Log-Generator/master/apache-fake-log-gen.py
-
-python3 apache-fake-log-gen.py -n 0 -o LOG -p /apache/logs/ &
+python3 apache-fake-log-gen.py -n 600 &
 
 sleep 1
 

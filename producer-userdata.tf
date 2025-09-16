@@ -19,6 +19,18 @@ data "cloudinit_config" "controller" {
   }
 
   part {
+    filename     = "025-download-apache-fake-log-gen"
+    content_type = "text/cloud-config"
+    content      = <<-EOT
+      #cloud-config
+      write_files:
+        - path: /apache-fake-log-gen.py
+          permissions: '0644'
+          content: |
+            ${indent(12, file("${path.module}/userdata/apache-fake-log-gen.py"))}
+    EOT
+  }
+  part {
     filename     = "03-install-apache-fake-log-gen.sh"
     content_type = "text/x-shellscript"
     content      = file("${path.module}/userdata/03-install-apache-fake-log-gen.sh")
