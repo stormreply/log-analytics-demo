@@ -14,7 +14,7 @@
     },
     {
       "title": "Define Kinesis Source Table",
-      "text": "%flink.ssql(type=ddl)\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS TO_TIMESTAMP_LTZ(datetime, 3),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-berndherding-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
+      "text": "%flink.ssql(type=ddl)\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS TO_TIMESTAMP(datetime, 'dd/MMM/yyyy:HH:mm:ss Z'),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-berndherding-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
       "config": {
         "editorMode": "ace/mode/sql"
       }
@@ -35,11 +35,6 @@
       "config": {}
     },
     {
-      "title": "Cumulative Window (step 5s, max 30s)",
-      "text": "%flink.ssql(type=update)\nCREATE OR REPLACE VIEW cumulative_counts AS\nSELECT\n  CUMULATE_END(event_time, INTERVAL '5' SECOND, INTERVAL '30' SECOND) AS window_end,\n  response,\n  COUNT(*) AS cnt\nFROM INGESTION_STREAM\nGROUP BY\n  CUMULATE(event_time, INTERVAL '5' SECOND, INTERVAL '30' SECOND),\n  response;",
-      "config": {}
-    },
-    {
       "title": "Query Tumbling Counts",
       "text": "%flink.ssql(type=update)\nSELECT * FROM tumbling_counts;",
       "config": {}
@@ -52,11 +47,6 @@
     {
       "title": "Query Session Counts",
       "text": "%flink.ssql(type=update)\nSELECT * FROM session_counts;",
-      "config": {}
-    },
-    {
-      "title": "Query Cumulative Counts",
-      "text": "%flink.ssql(type=update)\nSELECT * FROM cumulative_counts;",
       "config": {}
     }
   ],
