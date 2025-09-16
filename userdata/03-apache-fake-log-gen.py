@@ -32,12 +32,50 @@ number_gauss = int(random.gauss(args.number, int(args.number / 20)))
 sleep_ms = int(60 / number_gauss * 1000)
 sleep_gauss = int(random.gauss(sleep_ms, int(sleep_ms / 20)))
 
-def rri(n):
-    return random.randint(int(n*950), int(n*1050)) / 1000
+def generate_gauss_array(basis, std=0.1):
+    """
+    Erzeugt ein Array mit 4 Werten:
+      - Jeder Wert wird normalverteilt um basis[i] generiert.
+      - Werte >= 0
+      - Summe der Werte = exakt 1.0
+
+    Args:
+        basis (list[float]): Liste mit 4 Basiswerten (z. B. Erwartungswerte).
+        std (float): Standardabweichung der Gaußverteilung.
+
+    Returns:
+        list[float]: 4 Werte mit Summe = 1.0
+    """
+    if len(basis) != 4:
+        raise ValueError("basis muss genau 4 Werte enthalten.")
+
+    # normalverteilte Zufallswerte
+    values = [numpy.random.normal(loc=b, scale=std) for b in basis]
+
+    # negatives auf 0 setzen
+    values = numpy.clip(values, 0, None)
+
+    # normieren auf Summe = 1
+    total = sum(values)
+    if total == 0:
+        # falls alles 0 → gleichmäßige Verteilung
+        values = [0.25] * 4
+    else:
+        values = [v / total for v in values]
+
+    return values
+
+ten_sec_window = datetime.datetime.now()
+ten_secs = datetime.timedelta(seconds=10)
+resp_p = generate_gauss_array([0.6, 0.1, 0.2, 0.1], std=0.1)
 
 while (True):
 
     now = datetime.datetime.now()
+    if now - ten_sec_window > ten_secs:
+        ten_sec_window = now
+        resp_p = generate_gauss_array([0.6, 0.2, 0.15, 0.05], std=0.1)
+
     delta_ms = random.randint(-2000, 2000)
     delta = datetime.timedelta(milliseconds=delta_ms)
     rt = now + delta
@@ -51,7 +89,7 @@ while (True):
     if uri.find("apps")>0:
         uri += str(random.randint(1000,10000))
 
-    resp = numpy.random.choice(response,p=[n for n in [0.9,0.04,0.02,0.04]])
+    resp = numpy.random.choice(response,p=resp_p)
     byt = int(random.gauss(5000,50))
     referer = faker.uri()
     useragent = numpy.random.choice(ualist,p=[0.5,0.3,0.1,0.05,0.05] )()
