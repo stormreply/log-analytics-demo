@@ -43,8 +43,8 @@
       "config": {}
     },
     {
-      "title": "Tumbling 10-seconds Pie Chart"
-      "text": "%flink.ssql(type=update)\n\nSELECT response, cnt\nFROM response_distribution\nWHERE window_end = (\n  SELECT MAX(window_end) FROM response_distribution\n);\n",
+      "title": "Tumbling 10-seconds Pie Chart",
+      "text": "%flink.ssql(type=update)\n\nSELECT response, cnt\nFROM tumbling_counts\nWHERE window_end = (\n  SELECT MAX(window_end) FROM tumbling_counts\n);\n",
       "config": {}
     }
   ]
