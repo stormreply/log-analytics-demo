@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "BEGIN -- 03-install-apache-fake-log-gen.sh"
+echo "BEGIN -- 04-start-apache-fake-log-gen.sh"
 
 sudo pip install numpy
 sudo pip install faker
@@ -10,4 +10,4 @@ python3 apache-fake-log-gen.py -n 600 &
 
 sleep 1
 
-echo "END ---- 03-install-apache-fake-log-gen.sh"
+echo "END ---- 04-start-apache-fake-log-gen.sh"
