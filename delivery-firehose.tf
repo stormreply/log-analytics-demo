@@ -77,11 +77,11 @@ resource "aws_kinesis_firehose_delivery_stream" "delivery_firehose" {
 
   kinesis_source_configuration {
     kinesis_stream_arn = aws_kinesis_stream.ingestion_stream.arn
-    role_arn           = aws_iam_role.firehose_role.arn
+    role_arn           = aws_iam_role.delivery_firehose.arn
   }
 
   extended_s3_configuration {
-    role_arn   = aws_iam_role.firehose_role.arn
+    role_arn   = aws_iam_role.delivery_firehose.arn
     bucket_arn = aws_s3_bucket.bucket.arn
   }
 }
