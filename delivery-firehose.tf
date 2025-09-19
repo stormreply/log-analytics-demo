@@ -82,6 +82,6 @@ resource "aws_kinesis_firehose_delivery_stream" "delivery_firehose" {
 
   extended_s3_configuration {
     role_arn   = aws_iam_role.firehose_role.arn
-    bucket_arn = aws_s3_bucket.firehose_bucket.arn
+    bucket_arn = aws_s3_bucket.bucket.arn
   }
 }
