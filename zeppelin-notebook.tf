@@ -16,6 +16,16 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
   runtime_environment    = "ZEPPELIN-FLINK-3_0"
   service_execution_role = aws_iam_role.zeppelin_notebook.arn
   application_configuration = {
+    environment_properties = {
+      property_groups = [
+        {
+          property_group_id = "environment.variables"
+          property_map = {
+            "ENVIRONMENT" = var.deployment.environment
+          }
+        }
+      ]
+    }
     flink_application_configuration = {
       checkpoint_configuration = {
         configuration_type = "DEFAULT"
