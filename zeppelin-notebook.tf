@@ -28,7 +28,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
     }
     flink_application_configuration = {
       checkpoint_configuration = {
-        configuration_type = "DEFAULT"
+        configuration_type = "CUSTOM"
       }
       monitoring_configuration = {
         configuration_type = "CUSTOM"
