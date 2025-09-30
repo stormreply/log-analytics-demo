@@ -1,5 +1,8 @@
 data "aws_availability_zones" "available" { state = "available" }
 data "aws_caller_identity" "current" {}
+data "aws_iam_role" "caller" {
+  name = local.caller_iam_role
+}
 data "aws_region" "current" {}
 
 data "external" "lakeformation_enabled" {
@@ -15,6 +18,8 @@ data "external" "lakeformation_enabled" {
 
 locals {
   # lakeformation_enabled = data.external.lakeformation_enabled.result.enabled == "true"
-  account_id = data.aws_caller_identity.current.account_id
-  region     = data.aws_region.current.region
+  account_id          = data.aws_caller_identity.current.account_id
+  caller_iam_role     = regex("^arn:aws:sts::\\d+:assumed-role/([^/]+)/.*", data.aws_caller_identity.current.arn)[0]
+  caller_iam_role_arn = data.aws_iam_role.caller.arn
+  region              = data.aws_region.current.region
 }

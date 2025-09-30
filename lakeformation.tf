@@ -1,3 +1,10 @@
+resource "aws_lakeformation_permissions" "catalog_create_db" {
+  principal   = local.caller_iam_role_arn
+  permissions = ["CREATE_DATABASE"]
+
+  catalog_resource = true
+}
+
 resource "aws_lakeformation_permissions" "zeppelin_database" {
   principal   = aws_iam_role.zeppelin_notebook.arn
   permissions = ["ALL"]
