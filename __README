@@ -1,3 +1,11 @@
+PRECONDITION:
+
+add slt-0-storm-library-for-terraform-deployment role with
+"Create database" permission under "Administrative roles and tasks"
+in Lakeformation console
+
+
+
 example taken from
 https://aws.amazon.com/de/tutorials/build-log-analytics-solution/
 
