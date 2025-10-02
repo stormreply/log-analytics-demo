@@ -6,20 +6,20 @@
 #   catalog_resource = true
 # }
 
-# resource "aws_lakeformation_permissions" "zeppelin_database" {
-#   principal   = aws_iam_role.zeppelin_notebook.arn
-#   permissions = ["ALL"]
+resource "aws_lakeformation_permissions" "zeppelin_database" {
+  principal   = aws_iam_role.zeppelin_notebook.arn
+  permissions = ["ALL"]
 
-#   database {
-#     name = aws_glue_catalog_database.zeppelin_database.name
-#   }
-# }
+  database {
+    name = aws_glue_catalog_database.zeppelin_database.name
+  }
+}
 
-# resource "aws_lakeformation_permissions" "hive_database" {
-#   principal   = aws_iam_role.zeppelin_notebook.arn
-#   permissions = ["ALL"]
-#   database {
-#     name       = aws_glue_catalog_database.hive_database.name
-#     catalog_id = data.aws_caller_identity.current.account_id
-#   }
-# }
+resource "aws_lakeformation_permissions" "hive_database" {
+  principal   = aws_iam_role.zeppelin_notebook.arn
+  permissions = ["ALL"]
+  database {
+    name       = aws_glue_catalog_database.hive_database.name
+    catalog_id = data.aws_caller_identity.current.account_id
+  }
+}
