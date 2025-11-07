@@ -1,5 +1,5 @@
 resource "aws_iam_role" "zeppelin_notebook" {
-  name               = "${var.deployment.name}-zeppelin-notebook"
+  name               = "${local._name_tag}-zeppelin-notebook"
   assume_role_policy = data.aws_iam_policy_document.zeppelin_notebook_assume_role.json
   depends_on = [
 
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "zeppelin_notebook_assume_role" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:kinesisanalytics:${local.region}:${local.account_id}:application/${var.deployment.name}"]
+      values   = ["arn:aws:kinesisanalytics:${local.region}:${local.account_id}:application/${local._name_tag}"]
     }
   }
 }
@@ -33,8 +33,8 @@ resource "aws_iam_role_policy_attachment" "zeppelin_notebook" {
 }
 
 resource "aws_iam_policy" "zeppelin_notebook" {
-  name        = "${var.deployment.name}-zeppelin-notebook"
-  description = "Policy for the Kinesis Flink Zeppelin Notebook ${var.deployment.name}"
+  name        = "${local._name_tag}-zeppelin-notebook"
+  description = "Policy for the Kinesis Flink Zeppelin Notebook ${local._name_tag}"
   policy      = data.aws_iam_policy_document.zeppelin_notebook.json
 }
 
@@ -75,7 +75,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "logs:DescribeLogStreams"
     ]
     resources = [
-      "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/kinesis-analytics/${var.deployment.name}:log-stream:*"
+      "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/kinesis-analytics/${local._name_tag}:log-stream:*"
     ]
   }
   statement {
@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "logs:PutLogEvents"
     ]
     resources = [
-      "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/kinesis-analytics/${var.deployment.name}:log-stream:*"
+      "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/kinesis-analytics/${local._name_tag}:log-stream:*"
     ]
   }
   statement {
@@ -144,8 +144,8 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
     resources = [
       "arn:aws:glue:${local.region}:${local.account_id}:catalog",
       "arn:aws:glue:${local.region}:${local.account_id}:database/${aws_glue_catalog_database.zeppelin_database.name}",
-      # "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/ingestion_stream"
-      "arn:aws:glue:${local.region}:${local.account_id}:table/${var.deployment.name}/*"
+      # "arn:aws:glue:${local.region}:${local.account_id}:table/${local._name_tag}/ingestion_stream"
+      "arn:aws:glue:${local.region}:${local.account_id}:table/${local._name_tag}/*"
     ]
   }
   statement {

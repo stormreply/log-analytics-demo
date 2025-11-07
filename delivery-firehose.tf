@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "delivery_firehose" {
 }
 
 resource "aws_iam_policy" "delivery_firehose" {
-  name        = "${var.deployment.name}-delivery-firehose"
+  name        = "${local._name_tag}-delivery-firehose"
   description = "Policy for the Kinesis Firehose delivery-firehose"
   policy      = data.aws_iam_policy_document.delivery_firehose.json
 }
@@ -53,7 +53,7 @@ data "aws_iam_policy_document" "delivery_firehose_assume_role" {
 }
 
 resource "aws_iam_role" "delivery_firehose" {
-  name               = "${var.deployment.name}-delivery-firehose"
+  name               = "${local._name_tag}-delivery-firehose"
   assume_role_policy = data.aws_iam_policy_document.delivery_firehose_assume_role.json
 }
 
@@ -63,16 +63,16 @@ resource "aws_iam_role_policy_attachment" "delivery_firehose" {
 }
 
 resource "aws_cloudwatch_log_group" "delivery_firehose" {
-  name = "/aws/kinesisfirehose/${var.deployment.name}-delivery-firehose"
+  name = "/aws/kinesisfirehose/${local._name_tag}-delivery-firehose"
 }
 
 resource "aws_cloudwatch_log_stream" "delivery_firehose" {
-  name           = var.deployment.name
+  name           = local._name_tag
   log_group_name = aws_cloudwatch_log_group.delivery_firehose.name
 }
 
 resource "aws_kinesis_firehose_delivery_stream" "delivery_firehose" {
-  name        = "${var.deployment.name}-delivery-firehose"
+  name        = "${local._name_tag}-delivery-firehose"
   destination = "extended_s3"
 
   kinesis_source_configuration {

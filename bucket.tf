@@ -1,4 +1,4 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket        = var.deployment.name
+  bucket        = local._name_tag
   force_destroy = true
 }

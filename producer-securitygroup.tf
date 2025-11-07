@@ -1,6 +1,6 @@
 resource "aws_security_group" "producer" {
-  name        = "${var.deployment.name}-producer"
-  description = "Security group for the ${var.deployment.name} producer"
+  name        = "${local._name_tag}-producer"
+  description = "Security group for the ${local._name_tag} producer"
   ingress {
     from_port = 0
     to_port   = 0

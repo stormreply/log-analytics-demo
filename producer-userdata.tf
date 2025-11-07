@@ -14,7 +14,7 @@ data "cloudinit_config" "controller" {
     filename     = "02-install-kinesis-agent.sh"
     content_type = "text/x-shellscript"
     content = templatefile("${path.module}/userdata/02-install-kinesis-agent.sh", {
-      deployment_name = var.deployment.name
+      deployment_name = local._name_tag
     })
   }
 
