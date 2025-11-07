@@ -27,6 +27,7 @@ resource "aws_s3_object" "connector_jar" {
   for_each = local.connector
   bucket   = aws_s3_bucket.bucket.bucket
   key      = each.value.jar
+  provider = aws.no_tags
   source   = each.value.jar
   # etag = filemd5(local.connector_jar)
   depends_on = [
