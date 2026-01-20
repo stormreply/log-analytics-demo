@@ -21,7 +21,7 @@ resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
         {
           property_group_id = "environment.variables"
           property_map = {
-            "ENVIRONMENT" = local._metadata.environment
+            "ENVIRONMENT" = local._metadata.actor
           }
         }
       ]
