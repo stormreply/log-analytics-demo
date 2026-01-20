@@ -21,5 +21,7 @@ locals {
   account_id          = data.aws_caller_identity.current.account_id
   caller_iam_role     = regex("^arn:aws:sts::\\d+:assumed-role/([^/]+)/.*", data.aws_caller_identity.current.arn)[0]
   caller_iam_role_arn = data.aws_iam_role.caller.arn
+  ingestion_stream    = "${local._name_tag}-ingestion-stream"
   region              = data.aws_region.current.region
+  zeppelin_notebook   = "${local._name_tag}.zeppelin"
 }

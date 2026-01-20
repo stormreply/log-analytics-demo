@@ -1,6 +1,6 @@
 ﻿{
-  "name": "Window Comparison on Ingestion Stream",
-  "id": "window-comparison-notebook",
+  "name": "Log Analytics Demo",
+  "id": "log-analytics-demo",
   "config": {
     "looknfeel": "default"
   },
@@ -10,7 +10,7 @@
     },
     {
       "title": "Define Kinesis Source Table",
-      "text": "%flink.ssql(type=ddl)\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS TO_TIMESTAMP(datetime, 'dd/MMM/yyyy:HH:mm:ss Z'),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = 'slt-8-log-analytics-demo-stormreply-ingestion-stream',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
+      "text": "%flink.ssql(type=ddl)\nCREATE OR REPLACE TABLE INGESTION_STREAM (\n    host     VARCHAR(15),\n    datetime VARCHAR(30),\n    request  VARCHAR(500),\n    response INTEGER,\n    referer  VARCHAR(500),\n    agent    VARCHAR(500),\n    event_time AS TO_TIMESTAMP(datetime, 'dd/MMM/yyyy:HH:mm:ss Z'),\n    WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND\n) WITH (\n   'connector'  = 'kinesis',\n   'stream'     = '${ingestion_stream}',\n   'aws.region' = 'eu-central-1',\n   'format'     = 'json',\n   'scan.stream.initpos' = 'LATEST',\n   'json.timestamp-format.standard' = 'ISO-8601' \n);",
       "config": {
         "editorMode": "ace/mode/sql"
       }

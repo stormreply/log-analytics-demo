@@ -1,5 +1,5 @@
 resource "aws_kinesis_stream" "ingestion_stream" {
-  name             = "${local._name_tag}-ingestion-stream"
+  name             = local.ingestion_stream
   shard_count      = 1
   retention_period = 24
 

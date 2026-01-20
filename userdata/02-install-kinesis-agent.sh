@@ -1,6 +1,6 @@
 #!/bin/bash
 
-deployment_name=$1
+ingestion_stream=$1
 
 echo "BEGIN -- 02-install-kinesis-agent.sh"
 
@@ -17,7 +17,7 @@ cat << EOT > /etc/aws-kinesis/agent.json
 "flows": [
     {
         "filePattern": "/apache/logs/access_log_*.log",
-        "kinesisStream": "${deployment_name}-ingestion-stream",
+        "kinesisStream": "$ingestion_stream",
         "dataProcessingOptions": [
             {
             "optionName": "LOGTOJSON",
