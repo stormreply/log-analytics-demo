@@ -17,7 +17,7 @@ cat << EOT > /etc/aws-kinesis/agent.json
 "flows": [
     {
         "filePattern": "/apache/logs/access_log_*.log",
-        "kinesisStream": "$ingestion_stream",
+        "kinesisStream": "${ingestion_stream}",
         "dataProcessingOptions": [
             {
             "optionName": "LOGTOJSON",
