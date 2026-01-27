@@ -16,7 +16,7 @@ or show how a certain service, pattern or solution looks like, or "feels".
 
 ## Installation
 
-This demo can be built using GitHub Actions. It you want to do so,
+This demo can be built using GitHub Actions. In order to do so
 
 - [Install the Storm Library for Terraform](https://github.com/stormreply/storm-library-for-terraform/blob/main/docs/INSTALL-LIBRARY.md)
 - **Only if your account has AWS Lake Formation enabled:**
@@ -73,7 +73,6 @@ Deployment of this member should take < 5 minutes on GitHub resources.
    for a minute or so. A pie chart will show up. The pie chart will
    update every ten seconds, showing percentages of HTTP status codes
    sent from an instance running Faker.
-<br>
 <br>
 <br>
 
