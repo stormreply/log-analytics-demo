@@ -3,10 +3,20 @@
 A demo combining Amazon Kinesis Data Streams, Amazon Data Firehose and
 Amazon Managed Service for Apache Flink running a Zeppelin notebook.
 
+#### Storm Library for Terraform
+
+This repository is a member of the SLT | Storm Library for Terraform,
+a collection of Terraform modules for Amazon Web Services. The focus
+of these modules, maintained in separate GitHub™ repositories, is on
+building examples, demos and showcases on AWS. The audience of the
+library is learners and presenters alike - people that want to know
+or show how a certain service, pattern or solution looks like, or "feels".
+
+[Learn more](https://github.com/stormreply/storm-library-for-terraform)
+
 ## Installation
 
-This repository is a member of the **Storm Library for Terraform** and
-can be built using GitHub Actions. It you want to do so, you need to
+This demo can be built using GitHub Actions. It you want to do so,
 
 - [Install the Storm Library for Terraform](https://github.com/stormreply/storm-library-for-terraform/blob/main/docs/INSTALL-LIBRARY.md)
 - **Only if your account has AWS Lake Formation enabled:**
@@ -63,17 +73,9 @@ Deployment of this member should take < 5 minutes on GitHub resources.
    for a minute or so. A pie chart will show up. The pie chart will
    update every ten seconds, showing percentages of HTTP status codes
    sent from an instance running Faker.
-
-#### Storm Library for Terraform
-
-This repository is a member of the SLT | Storm Library for Terraform,
-a collection of Terraform modules for Amazon Web Services. The focus
-of these modules, maintained in separate GitHub™ repositories, is on
-building examples, demos and showcases on AWS. The audience of the
-library is learners and presenters alike - people that want to know
-or show how a certain service, pattern or solution looks like, or "feels".
-
-[Learn more](https://github.com/stormreply/storm-library-for-terraform)
+<br>
+<br>
+<br>
 
 #### Credits
 
