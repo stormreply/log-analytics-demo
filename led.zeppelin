@@ -6,7 +6,7 @@
   },
   "paragraphs": [
     {
-      "text": "%md\n\n# Create flink table\n\nCreate a flink \"table\" based on the fake http log ingestion stream"
+      "text": "%md\n\n# Create flink table\n\nbased on a fake http logs ingestion stream"
     },
     {
       "title": "Define Kinesis Source Table",

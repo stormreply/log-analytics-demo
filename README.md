@@ -69,7 +69,7 @@ Deployment of this member should take < 5 minutes on GitHub resources.
    all paragraphs one after the other. Click on that play button.
 1. The paragraphs will run one after the other. Execution will take
    a minute or two.
-1. Check the last paragraph. Don't worry if it's saying _no result data_
+1. Check the last paragraph. Don't worry if it's saying _No Data available_
    for a minute or so. A pie chart will show up. The pie chart will
    update every ten seconds, showing percentages of HTTP status codes
    sent from an instance running Faker.
