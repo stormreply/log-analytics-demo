@@ -166,5 +166,5 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 
 ## Credits
 
-- **Inspiration:** https://d1.awsstatic.com/Projects/P4113850/aws-projects_build-log-analytics-solution-on-aws.pdf
-- **Faker:** https://github.com/joke2k/faker
+- [Build a Log Analytics Solution on AWS](https://d1.awsstatic.com/Projects/P4113850/aws-projects_build-log-analytics-solution-on-aws.pdf)
+- [Faker - Python package generating fake data](https://github.com/joke2k/faker)
