@@ -36,7 +36,7 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 
 ## Architecture
 
-[Image]
+![Architecture](assets/architecture.drawio.svg)
 
 ## Explore this demo
 
