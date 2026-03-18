@@ -1,4 +1,4 @@
-# SLT - A Log Analytics Demo
+# SLT - Log Analytics Demo
 
 A demo combining Amazon Kinesis Data Streams, Amazon Data Firehose and
 Amazon Managed Service for Apache Flink running a Zeppelin notebook.
