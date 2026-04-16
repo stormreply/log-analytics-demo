@@ -11,7 +11,7 @@ resource "time_sleep" "iam_propagation" {
 }
 
 resource "awscc_kinesisanalyticsv2_application" "zeppelin_notebook" {
-  application_name       = local._name_tag
+  application_name       = local._deployment
   application_mode       = "INTERACTIVE"
   runtime_environment    = "ZEPPELIN-FLINK-3_0"
   service_execution_role = aws_iam_role.zeppelin_notebook.arn
