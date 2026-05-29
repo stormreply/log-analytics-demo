@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "label": "Check Compliance",
+  "message": "failing",
+  "color": "red"
+}
