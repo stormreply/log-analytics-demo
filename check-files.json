@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "Check Files",
-  "message": "passing",
-  "color": "green"
+  "message": "failing",
+  "color": "red"
 }
