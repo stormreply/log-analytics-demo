@@ -1,5 +1,5 @@
 ### Storm Library for Terraform
-# A Log Analytics Demo
+# Log Analytics Demo
 
 A demo combining Amazon Kinesis Data Streams, Amazon Data Firehose and
 Amazon Managed Service for Apache Flink running a Zeppelin notebook.
@@ -9,8 +9,6 @@ Amazon Managed Service for Apache Flink running a Zeppelin notebook.
 [![Apply](https://github.com/stormreply/log-analytics-demo/actions/workflows/apply.yaml/badge.svg)](https://github.com/stormreply/log-analytics-demo/actions/workflows/apply.yaml)
 [![Test](https://github.com/stormreply/log-analytics-demo/actions/workflows/test.yaml/badge.svg)](https://github.com/stormreply/log-analytics-demo/actions/workflows/test.yaml)
 [![Destroy](https://github.com/stormreply/log-analytics-demo/actions/workflows/destroy.yaml/badge.svg)](https://github.com/stormreply/log-analytics-demo/actions/workflows/destroy.yaml)
-
-#### Storm Library for Terraform
 
 This repository is a member of the SLT | Storm Library for Terraform,
 a collection of Terraform modules for Amazon Web Services. The focus
