@@ -86,7 +86,7 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6 |
 | <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | >= 1 |
@@ -99,7 +99,7 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6 |
 | <a name="provider_aws.no_tags"></a> [aws.no\_tags](#provider\_aws.no\_tags) | >= 6 |
 | <a name="provider_awscc"></a> [awscc](#provider\_awscc) | >= 1 |
@@ -111,13 +111,13 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_producer"></a> [producer](#module\_producer) | git::https://github.com/stormreply/ssm-managed-instance.git | n/a |
 
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [aws\_cloudwatch\_log\_group.delivery\_firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws\_cloudwatch\_log\_stream.delivery\_firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_stream) | resource |
 | [aws\_glue\_catalog\_database.hive\_database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/glue_catalog_database) | resource |
@@ -154,13 +154,13 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input__metadata"></a> [\_metadata](#input\_\_metadata) | Select metadata passed from GitHub Workflows | <pre>object({<br/>    actor      = string # Github actor (deployer) of the deployment<br/>    catalog_id = string # SLT catalog id of this module<br/>    deployment = string # slt-<catalod_id>-<repo>-<actor><br/>    ref        = string # Git reference of the deployment<br/>    ref_name   = string # Git ref_name (branch) of the deployment<br/>    repo       = string # GitHub short repository name (without owner) of the deployment<br/>    repository = string # GitHub full repository name (including owner) of the deployment<br/>    sha        = string # Git (full-length, 40 char) commit SHA of the deployment<br/>    short_name = string # slt-<catalog_id>-<actor><br/>    time       = string # Timestamp of the deployment<br/>  })</pre> | <pre>{<br/>  "actor": "",<br/>  "catalog_id": "",<br/>  "deployment": "",<br/>  "ref": "",<br/>  "ref_name": "",<br/>  "repo": "",<br/>  "repository": "",<br/>  "sha": "",<br/>  "short_name": "",<br/>  "time": ""<br/>}</pre> | no |
 
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output__slt_config"></a> [\_slt\_config](#output\_\_slt\_config) | Map of SLT configuration |
 | <a name="output_artifact"></a> [artifact](#output\_artifact) | Artifact to be shown as a download link on the Github Action<br/>Workflow execution page. |
 <!-- END_TF_DOCS -->
