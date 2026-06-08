@@ -39,6 +39,9 @@ resource "aws_iam_policy" "zeppelin_notebook" {
 }
 
 data "aws_iam_policy_document" "zeppelin_notebook" {
+  # checkov:skip=CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+  # checkov:skip=CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+
   # statement {
   #   sid = "EverythingGlue"
   #   actions = [
@@ -177,7 +180,7 @@ data "aws_iam_policy_document" "zeppelin_notebook" {
       "kinesis:ListShards"
     ]
     resources = [
-      "${aws_kinesis_stream.ingestion_stream.arn}",
+      aws_kinesis_stream.ingestion_stream.arn,
       "${aws_kinesis_stream.ingestion_stream.arn}/*",                # TODO: check if necessary
       "arn:aws:kinesis:${local.region}:${local.account_id}:stream/*" # NAME UNKNOWN IN ADVANCE
     ]

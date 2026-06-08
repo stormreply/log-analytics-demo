@@ -79,16 +79,14 @@ Deployment of this member should take < 5 minutes on GitHub resources.
    update every ten seconds, showing percentages of HTTP status codes
    sent from an instance running Faker.
 
-## Terraform Docs
-
 <details>
-<summary>Click to show</summary>
+<summary><h2>Terraform Docs</h2></summary>
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6 |
 | <a name="requirement_awscc"></a> [awscc](#requirement\_awscc) | >= 1 |
@@ -101,12 +99,11 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6 |
 | <a name="provider_aws.no_tags"></a> [aws.no\_tags](#provider\_aws.no\_tags) | >= 6 |
 | <a name="provider_awscc"></a> [awscc](#provider\_awscc) | >= 1 |
 | <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | >= 2 |
-| <a name="provider_external"></a> [external](#provider\_external) | >= 2 |
 | <a name="provider_local"></a> [local](#provider\_local) | >= 2 |
 | <a name="provider_null"></a> [null](#provider\_null) | >= 3 |
 | <a name="provider_time"></a> [time](#provider\_time) | >= 0 |
@@ -114,13 +111,13 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_producer"></a> [producer](#module\_producer) | git::https://github.com/stormreply/ssm-managed-instance.git | n/a |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws\_cloudwatch\_log\_group.delivery\_firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws\_cloudwatch\_log\_stream.delivery\_firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_stream) | resource |
 | [aws\_glue\_catalog\_database.hive\_database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/glue_catalog_database) | resource |
@@ -142,7 +139,6 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 | [local\_file.zeppelin\_notebook\_json](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [null\_resource.connector\_download](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [time\_sleep.iam\_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-| [aws\_availability\_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws\_caller\_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws\_iam\_policy.amazon\_kinesis\_firehose\_full\_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
 | [aws\_iam\_policy.amazon\_kinesis\_full\_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
@@ -152,21 +148,19 @@ Deployment of this member should take < 5 minutes on GitHub resources.
 | [aws\_iam\_policy\_document.delivery\_firehose\_assume\_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws\_iam\_policy\_document.zeppelin\_notebook](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws\_iam\_policy\_document.zeppelin\_notebook\_assume\_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws\_iam\_role.caller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role) | data source |
 | [aws\_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [cloudinit\_config.controller](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) | data source |
-| [external\_external.lakeformation\_enabled](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input__metadata"></a> [\_metadata](#input\_\_metadata) | Select metadata passed from GitHub Workflows | <pre>object({<br/>    actor      = string # Github actor (deployer) of the deployment<br/>    catalog_id = string # SLT catalog id of this module<br/>    deployment = string # slt-<catalod_id>-<repo>-<actor><br/>    ref        = string # Git reference of the deployment<br/>    ref_name   = string # Git ref_name (branch) of the deployment<br/>    repo       = string # GitHub short repository name (without owner) of the deployment<br/>    repository = string # GitHub full repository name (including owner) of the deployment<br/>    sha        = string # Git (full-length, 40 char) commit SHA of the deployment<br/>    short_name = string # slt-<catalog_id>-<actor><br/>    time       = string # Timestamp of the deployment<br/>  })</pre> | <pre>{<br/>  "actor": "",<br/>  "catalog_id": "",<br/>  "deployment": "",<br/>  "ref": "",<br/>  "ref_name": "",<br/>  "repo": "",<br/>  "repository": "",<br/>  "sha": "",<br/>  "short_name": "",<br/>  "time": ""<br/>}</pre> | no |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output__slt_config"></a> [\_slt\_config](#output\_\_slt\_config) | Map of SLT configuration |
 | <a name="output_artifact"></a> [artifact](#output\_artifact) | Artifact to be shown as a download link on the Github Action<br/>Workflow execution page. |
 <!-- END_TF_DOCS -->
