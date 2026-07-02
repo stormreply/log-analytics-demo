@@ -13,3 +13,5 @@ awk '
 ' README.new > README.md
 
 rm README.new
+
+git --no-pager diff
